@@ -1,5 +1,5 @@
-import Logo from '../../assets/Logo.png';
-import { Button, Divider } from '@mui/material';
+import { Button } from '@mui/material';
+import { Logo } from '../../assets';
 
 const Navbar = () => {
   return (
@@ -7,9 +7,9 @@ const Navbar = () => {
       <div>
         <img src={Logo} alt="Logo" width="60" />
       </div>
-      <div className='divide-x'>
-        <button className='font-semibold text-[#FF1C23] mx-3'>LOGIN</button>
-        <Button variant="contained" sx={{bgcolor: "#FF1C23"}}>SIGNUP</Button>
+      <div>
+        <Button variant="text" className='mx-3' style={{ color: '#FF1C23' }}>LOGIN</Button>
+        <Button variant="contained" style={{ backgroundColor: '#FF1C23' }}>SIGNUP</Button>
       </div>
     </div>
   )
