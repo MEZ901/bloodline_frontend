@@ -4,6 +4,7 @@ const App = () => (
   <div className='w-11/12 m-auto'>
     <Navbar />
     <Hero />
+    <Guide />
   </div>
 );
 
