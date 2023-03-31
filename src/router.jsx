@@ -1,15 +1,17 @@
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    Route,
-} from "react-router-dom";
-
-import LandingPage from "./views/LandingPage";
+import { createBrowserRouter } from "react-router-dom";
+import { RootLayout } from "./layouts";
+import { LandingPage } from "./views";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <LandingPage />,
+        element: <RootLayout />,
+        children: [
+            {
+                path: '/',
+                element: <LandingPage />,
+            },
+        ],
     },
 ]);
 
