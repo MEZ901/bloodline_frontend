@@ -1,15 +1,19 @@
-import { Signup } from "../../assets";
+import { guideSteps } from "../../constants";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const GuideCard = () => {
+const GuideCard = ({title, cover, index}) => {
   return (
-    <div>
-        <div className="w-60 h-60 bg-secondary rounded">
-            <img src={Signup} alt="Sign up" />
+    <>
+      <div className="flex sm:gap-2 md:gap-4 relative">
+        <div className="w-full h-24 sm:h-32 md:h-48 lg:h-60 bg-secondary rounded flex" style={{backgroundImage: `url(${cover})`, backgroundRepeat: 'no-repeat',  backgroundPosition: 'center center'}}></div>
+        <div className="my-auto hidden md:flex absolute left-full top-1/2 bottom-1/2">
+          {index !== guideSteps.length - 1 && <NavigateNextIcon />}
         </div>
-        <div className="text-center">
-            <h3 className="text-xl">Sign up for free</h3>
-        </div>
-    </div>
+      </div>
+      <div className="text-center">
+          <h3 className="text-sm lg:text-lg">{title}</h3>
+      </div>
+    </>
   )
 }
 
