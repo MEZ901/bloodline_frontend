@@ -6,6 +6,7 @@ const LandingPage = () => (
     <Hero />
     <Guide />
     <Benefits />
+    <Newsletter />
   </div>
 );
 
