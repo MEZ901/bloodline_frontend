@@ -1,6 +1,5 @@
 import { GuideCard } from ".";
 import { guideSteps } from "../../constants";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Guide = () => {
   return (
