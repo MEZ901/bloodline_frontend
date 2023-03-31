@@ -6,7 +6,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 const Guide = () => {
   return (
     <div className="text-center mt-5">
-      <h3 className="text-xl font-bold">How it works?</h3>
+      <h3 className="text-xl sm:text-2xl font-bold">How it works?</h3>
       <div className="flex justify-evenly my-5">
         {guideSteps.map((step, index) => (
           <React.Fragment key={step.id}>

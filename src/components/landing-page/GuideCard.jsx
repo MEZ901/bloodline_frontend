@@ -1,6 +1,3 @@
-import { guideSteps } from "../../constants";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
 const GuideCard = ({title, cover, index}) => {
   return (
     <>
