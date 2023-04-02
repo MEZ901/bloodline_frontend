@@ -1,4 +1,5 @@
-import { Navbar, Hero, Guide, Benefits, Newsletter, Footer } from '../components/landing-page';
+import { Hero, Guide, Benefits, Newsletter, Footer } from '../components/landing-page';
+import { Navbar } from '../components/common';
 
 const LandingPage = () => (
   <div>
