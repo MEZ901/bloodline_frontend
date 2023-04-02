@@ -22,7 +22,7 @@ const Register = () => {
                         Create new account
                     </h1>
                     <form className="space-y-4 md:space-y-6" action="#">
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                             <TextField
                                 id="first_name"
                                 name="first_name"
@@ -36,7 +36,7 @@ const Register = () => {
                                 variant="outlined"
                             />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                             <TextField
                                 id="cin"
                                 name="cin"

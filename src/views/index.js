@@ -1,3 +1,4 @@
 import LandingPage from "./LandingPage";
+import PageNotFound from "./PageNotFound";
 
-export { LandingPage };
+export { LandingPage, PageNotFound };
