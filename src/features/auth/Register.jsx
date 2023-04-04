@@ -38,10 +38,11 @@ const Register = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2">
                             <TextField
-                                id="cin"
-                                name="cin"
-                                label="CIN"
+                                id="age"
+                                name="age"
+                                label="age"
                                 variant="outlined"
+                                type="number"
                                 fullWidth
                             />
                             <Autocomplete
@@ -51,6 +52,23 @@ const Register = () => {
                                 options={bloodTypes}
                                 fullWidth
                                 renderInput={(params) => <TextField {...params} label="Blood Types" />}
+                            />
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                            <TextField
+                                id="cin"
+                                name="cin"
+                                label="CIN"
+                                variant="outlined"
+                                fullWidth
+                            />
+                            <Autocomplete
+                                disablePortal
+                                id="city"
+                                name="city"    
+                                options={bloodTypes}
+                                fullWidth
+                                renderInput={(params) => <TextField {...params} label="City" />}
                             />
                         </div>
                         <div>
@@ -116,7 +134,7 @@ const Register = () => {
                                 </div>
                             </div>
                         </div>
-                        <Button type="submit" variant="contained" style={{ backgroundColor: '#FF1C23' }} fullWidth>Sign in</Button>
+                        <Button type="submit" variant="contained" style={{ backgroundColor: '#FF1C23' }} fullWidth>Sign up</Button>
                         <p className="text-sm font-light text-gray-500">
                             Already have an account? <Link to="/login" className="font-medium text-primary hover:underline">Sign in</Link>
                         </p>
