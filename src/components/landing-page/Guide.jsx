@@ -1,7 +1,7 @@
 import React from "react";
 import { GuideCard } from ".";
 import { guideSteps } from "../../constants";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const Guide = () => {
   return (
@@ -12,7 +12,11 @@ const Guide = () => {
           <React.Fragment key={step.id}>
             <div className="flex justify-between">
               <div className="w-24 sm:w-32 md:w-48 lg:w-60">
-                <GuideCard title={step.title} cover={step.cover} index={index} />
+                <GuideCard
+                  title={step.title}
+                  cover={step.cover}
+                  index={index}
+                />
               </div>
             </div>
             <div className="my-auto hidden md:flex">
@@ -22,7 +26,7 @@ const Guide = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Guide
+export default Guide;
