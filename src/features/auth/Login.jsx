@@ -1,12 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { TextField, InputAdornment, IconButton, FormControl, OutlinedInput, InputLabel, Button } from "@mui/material";
+import { TextField, InputAdornment, IconButton, FormControl, OutlinedInput, InputLabel, Button, FormHelperText } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Logo } from "../../assets";
+import { useFormik } from "formik";
+import { loginSchema } from "../../schemas"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleSubmit,
+    handleBlur
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
   return (
     <section className="bg-gray-50">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -18,9 +38,14 @@ const Login = () => {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Sign in to your account
                     </h1>
-                    <form className="space-y-4 md:space-y-6" action="#">
+                    <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <TextField
+                                error={errors.email && touched.email}
+                                helperText={errors.email && touched.email ? errors.email : null}
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 id="email"
                                 name="email"
                                 label="Email"
@@ -29,26 +54,34 @@ const Login = () => {
                             />
                         </div>
                         <div>
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                            <OutlinedInput
-                                id="password"
-                                name="password"
-                                label="Password"
-                                type={showPassword ? 'text' : 'password'}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            edge="end"
-                                        >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
+                            <FormControl
+                                fullWidth
+                                variant="outlined"
+                                error={errors.password && touched.password}
+                            >
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    id="password"
+                                    name="password"
+                                    label="Password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                <FormHelperText>{errors.password && touched.password ? errors.password : null}</FormHelperText>
+                            </FormControl>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-start">
