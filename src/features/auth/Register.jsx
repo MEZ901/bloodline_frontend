@@ -19,60 +19,11 @@ import { useFormik } from "formik";
 import { registerSchema } from "../../schemas";
 
 const Register = () => {
-  const cities = useLoaderData();
-  // console.log(cities);
+  const [cities, bloodTypes] = useLoaderData();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
-  const bloodTypes = [
-    {
-      id: 1,
-      name: "A+",
-    },
-    {
-      id: 2,
-      name: "A-",
-    },
-    {
-      id: 3,
-      name: "B+",
-    },
-    {
-      id: 4,
-      name: "B-",
-    },
-    {
-      id: 5,
-      name: "AB+",
-    },
-    {
-      id: 6,
-      name: "AB-",
-    },
-    {
-      id: 7,
-      name: "O+",
-    },
-    {
-      id: 8,
-      name: "O-",
-    },
-    {
-      id: 9,
-      name: "I don't know",
-    },
-  ]
-  // const cities = [
-  //   {
-  //     id: 1,
-  //     name: "Ariana",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Béja",
-  //   },
-  // ];
 
   const {
     values,
