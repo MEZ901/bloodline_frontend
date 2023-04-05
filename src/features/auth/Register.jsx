@@ -24,16 +24,43 @@ const Register = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
   const bloodTypes = [
-    "A+",
-    "A-",
-    "B+",
-    "B-",
-    "AB+",
-    "AB-",
-    "O+",
-    "O-",
-    "I don't know",
-  ];
+    {
+      id: 1,
+      name: "A+",
+    },
+    {
+      id: 2,
+      name: "A-",
+    },
+    {
+      id: 3,
+      name: "B+",
+    },
+    {
+      id: 4,
+      name: "B-",
+    },
+    {
+      id: 5,
+      name: "AB+",
+    },
+    {
+      id: 6,
+      name: "AB-",
+    },
+    {
+      id: 7,
+      name: "O+",
+    },
+    {
+      id: 8,
+      name: "O-",
+    },
+    {
+      id: 9,
+      name: "I don't know",
+    },
+  ]
   const cities = [
     {
       id: 1,
@@ -58,9 +85,15 @@ const Register = () => {
       firstName: "",
       lastName: "",
       age: "",
-      bloodType: "",
+      bloodType: {
+        id: "",
+        name: "",
+      },
       cin: "",
-      city: "",
+      city: {
+        id: "",
+        name: "",
+      },
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -86,7 +119,7 @@ const Register = () => {
               Create new account
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
                 <TextField
                   error={errors.firstName && touched.firstName}
                   helperText={
@@ -116,7 +149,7 @@ const Register = () => {
                   variant="outlined"
                 />
               </div>
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
                 <TextField
                   error={errors.age && touched.age}
                   helperText={errors.age && touched.age ? errors.age : null}
@@ -135,6 +168,7 @@ const Register = () => {
                   id="bloodType"
                   name="bloodType"
                   options={bloodTypes}
+                  getOptionLabel={(option) => option.name}
                   fullWidth
                   value={values.bloodType}
                   onChange={(event, newValue) => {
@@ -151,14 +185,12 @@ const Register = () => {
                           ? errors.bloodType
                           : null
                       }
-                      value={values.bloodType}
-                      onChange={handleChange}
                       onBlur={handleBlur}
                     />
                   )}
                 />
               </div>
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
                 <TextField
                   error={errors.cin && touched.cin}
                   helperText={errors.cin && touched.cin ? errors.cin : null}
@@ -176,6 +208,7 @@ const Register = () => {
                   id="city"
                   name="city"
                   options={cities}
+                  getOptionLabel={(option) => option.name}
                   fullWidth
                   value={values.city}
                   onChange={(event, newValue) => {
@@ -190,8 +223,6 @@ const Register = () => {
                       helperText={
                         errors.city && touched.city ? errors.city : null
                       }
-                      value={values.city}
-                      onChange={handleChange}
                       onBlur={handleBlur}
                     />
                   )}

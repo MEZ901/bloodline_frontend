@@ -12,13 +12,13 @@ const registerSchema = yup.object().shape({
         .number()
         .required("Age is required"),
     bloodType: yup
-        .string()
+        .object()
         .required("Blood type is required"),
     cin: yup
         .string()
         .required("CIN is required"),
     city: yup
-        .string()
+        .object()
         .required("City is required"),
     email: yup
         .string()
