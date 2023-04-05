@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts";
-import { LandingPage, PageNotFound } from "./views";
+import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "/",

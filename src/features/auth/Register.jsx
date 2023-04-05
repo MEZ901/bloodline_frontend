@@ -22,8 +22,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowPasswordConfirmation = () =>
-    setShowPasswordConfirmation((show) => !show);
+  const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
   const bloodTypes = [
     "A+",
     "A-",
@@ -35,7 +34,16 @@ const Register = () => {
     "O-",
     "I don't know",
   ];
-  const cities = ["Tetouan", "Youssoufia"];
+  const cities = [
+    {
+      id: 1,
+      name: "Ariana",
+    },
+    {
+      id: 2,
+      name: "Béja",
+    },
+  ];
 
   const {
     values,
