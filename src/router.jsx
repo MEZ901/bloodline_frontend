@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts";
 import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
+import { registerLoader } from "./loaders";
 
 const router = createBrowserRouter([
   {
@@ -14,11 +15,12 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "register",
+        path: "/register",
+        loader: registerLoader,
         element: <Register />,
       },
       {

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 import {
   TextField,
   InputAdornment,
@@ -19,6 +19,8 @@ import { useFormik } from "formik";
 import { registerSchema } from "../../schemas";
 
 const Register = () => {
+  const cities = useLoaderData();
+  // console.log(cities);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -61,16 +63,16 @@ const Register = () => {
       name: "I don't know",
     },
   ]
-  const cities = [
-    {
-      id: 1,
-      name: "Ariana",
-    },
-    {
-      id: 2,
-      name: "Béja",
-    },
-  ];
+  // const cities = [
+  //   {
+  //     id: 1,
+  //     name: "Ariana",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Béja",
+  //   },
+  // ];
 
   const {
     values,
@@ -168,7 +170,7 @@ const Register = () => {
                   id="bloodType"
                   name="bloodType"
                   options={bloodTypes}
-                  getOptionLabel={(option) => option.name}
+                  getOptionLabel={(option) => option.name || ""}
                   fullWidth
                   value={values.bloodType}
                   onChange={(event, newValue) => {
@@ -208,7 +210,7 @@ const Register = () => {
                   id="city"
                   name="city"
                   options={cities}
-                  getOptionLabel={(option) => option.name}
+                  getOptionLabel={(option) => option.name || ""}
                   fullWidth
                   value={values.city}
                   onChange={(event, newValue) => {
