@@ -30,6 +30,7 @@ import {
   getBloodTypesError,
   fetchBloodTypes
 } from "../bloodTypes";
+import { LoadingSpinner } from "../../components/common";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -107,6 +108,11 @@ const Register = () => {
       // the code goes here ...
     },
   });
+
+  if (citiesStatus === "loading" || bloodTypesStatus === "loading") {
+    return <LoadingSpinner />;
+  }
+
   return (
     <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
