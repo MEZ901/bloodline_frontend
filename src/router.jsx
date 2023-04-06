@@ -20,7 +20,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        loader: registerLoader,
         element: <Register />,
       },
       {

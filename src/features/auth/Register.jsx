@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useFormik } from "formik";
+import { Logo } from "../../assets";
+import { registerSchema } from "../../schemas";
 import {
   TextField,
   InputAdornment,
@@ -13,17 +18,40 @@ import {
   Typography,
   FormHelperText,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Logo } from "../../assets";
-import { useFormik } from "formik";
-import { registerSchema } from "../../schemas";
+import {
+  selectAllCities,
+  getCitiesStatus,
+  getCitiesError,
+  fetchCities
+} from "../cities";
+import {
+  selectAllBloodTypes,
+  getBloodTypesStatus,
+  getBloodTypesError,
+  fetchBloodTypes
+} from "../bloodTypes";
 
 const Register = () => {
-  const [cities, bloodTypes] = useLoaderData();
+  const dispatch = useDispatch();
+
+  const cities = useSelector(selectAllCities);
+  const citiesStatus = useSelector(getCitiesStatus);
+  const citiesError = useSelector(getCitiesError);
+
+  const bloodTypes = useSelector(selectAllBloodTypes);
+  const bloodTypesStatus = useSelector(getBloodTypesStatus);
+  const bloodTypesError = useSelector(getBloodTypesError);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
+
+  useEffect(() => {
+    if (citiesStatus === "idle" || bloodTypesStatus === "idle") {
+      Promise.all([dispatch(fetchCities()), dispatch(fetchBloodTypes())]);
+    }
+  }, [citiesStatus, bloodTypesStatus, dispatch]);
 
   const {
     values,
@@ -53,8 +81,30 @@ const Register = () => {
       terms: false,
     },
     validationSchema: registerSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: ({
+      firstName,
+      lastName,
+      age,
+      bloodType,
+      cin,
+      city,
+      email,
+      password,
+      passwordConfirmation,
+    }) => {
+      const raw = {
+        first_name: firstName,
+        last_name: lastName,
+        age: age,
+        blood_type_id: bloodType.id,
+        CIN: cin,
+        city_id: city.id,
+        email: email,
+        password: password,
+        password_confirmation: passwordConfirmation,
+      }
+      console.log(raw);
+      // the code goes here ...
     },
   });
   return (
