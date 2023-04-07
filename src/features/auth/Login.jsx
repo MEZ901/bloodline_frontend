@@ -16,7 +16,7 @@ import { Logo } from "../../assets";
 import { loginSchema } from "../../schemas";
 import { useLoginMutation } from "../../app/api";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "./authSlice";
+import { setCredentialsAndStoreCookie } from "./authSlice";
 import { CircularProgress } from '@mui/material';
 
 const Login = () => {
@@ -42,8 +42,7 @@ const Login = () => {
       onSubmit: async (values) => {
         try {
           const userData = await login(values).unwrap();
-          console.log(userData);
-          dispatch(setCredentials(userData));
+          dispatch(setCredentialsAndStoreCookie(userData));
           // navigate("/");
         } catch (error) {
           console.log(error);

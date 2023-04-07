@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 import { citiesReducer } from "../features/cities";
 import { bloodTypesReducer } from "../features/bloodTypes";
 import { authReducer } from "../features/auth";
@@ -12,7 +13,7 @@ const store = configureStore({
     bloodTypes: bloodTypesReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware().concat([apiSlice.middleware, thunk]),
   devTools: true,
 });
 
