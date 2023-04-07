@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   TextField,
   InputAdornment,
@@ -14,10 +14,17 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { Logo } from "../../assets";
 import { loginSchema } from "../../schemas";
+import { useLoginMutation } from "../../app/api";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "./authSlice";
+import { CircularProgress } from '@mui/material';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
   const {
     values,
@@ -32,8 +39,15 @@ const Login = () => {
         password: "",
       },
       validationSchema: loginSchema,
-      onSubmit: (values) => {
-        console.log(values);
+      onSubmit: async (values) => {
+        try {
+          const userData = await login(values).unwrap();
+          console.log(userData);
+          dispatch(setCredentials(userData));
+          // navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
       },
     });
   return (
@@ -134,7 +148,7 @@ const Login = () => {
                 style={{ backgroundColor: "#FF1C23" }}
                 fullWidth
               >
-                Sign in
+                {isLoading ? <CircularProgress size={25} sx={{color: '#fff'}} /> : 'Sign in'}
               </Button>
               <p className="text-sm font-light text-gray-500">
                 Don’t have an account yet?{" "}

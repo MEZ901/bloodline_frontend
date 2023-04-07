@@ -21,13 +21,11 @@ import {
 import {
   selectAllCities,
   getCitiesStatus,
-  getCitiesError,
   fetchCities
 } from "../cities";
 import {
   selectAllBloodTypes,
   getBloodTypesStatus,
-  getBloodTypesError,
   fetchBloodTypes
 } from "../bloodTypes";
 import { LoadingSpinner } from "../../components/common";
@@ -37,11 +35,9 @@ const Register = () => {
 
   const cities = useSelector(selectAllCities);
   const citiesStatus = useSelector(getCitiesStatus);
-  const citiesError = useSelector(getCitiesError);
 
   const bloodTypes = useSelector(selectAllBloodTypes);
   const bloodTypesStatus = useSelector(getBloodTypesStatus);
-  const bloodTypesError = useSelector(getBloodTypesError);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
