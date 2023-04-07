@@ -18,13 +18,27 @@ import { useLoginMutation } from "../../app/api";
 import { useDispatch } from "react-redux";
 import { setCredentialsAndStoreCookie } from "./authSlice";
 import { CircularProgress } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
+
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const {
     values,
@@ -41,16 +55,22 @@ const Login = () => {
       validationSchema: loginSchema,
       onSubmit: async (values) => {
         try {
-          const userData = await login(values).unwrap();
-          dispatch(setCredentialsAndStoreCookie(userData));
+          const { data } = await login(values).unwrap();
+          dispatch(setCredentialsAndStoreCookie(data));
           // navigate("/");
         } catch (error) {
-          console.log(error);
+          setOpen(true);
         }
       },
     });
   return (
     <section className="bg-gray-50">
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress sx={{ color: '#FF1C23' }} />
+      </Backdrop>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link
           to="/"
@@ -147,7 +167,7 @@ const Login = () => {
                 style={{ backgroundColor: "#FF1C23" }}
                 fullWidth
               >
-                {isLoading ? <CircularProgress size={25} sx={{color: '#fff'}} /> : 'Sign in'}
+                Sign in
               </Button>
               <p className="text-sm font-light text-gray-500">
                 Don’t have an account yet?{" "}
@@ -162,6 +182,13 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <MuiAlert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {error?.data?.message ? "Email or password is incorrect!" : "Something went wrong"}
+          </MuiAlert>
+        </Snackbar>
+      </Stack>
     </section>
   );
 };
