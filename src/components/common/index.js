@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import LoadingSpinner from "./LoadingSpinner";
 
 export {

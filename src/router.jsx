@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { RootLayout } from "./layouts";
+import { RootLayout, UserLayout } from "./layouts";
 import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
 import { Home } from "./features/home";
@@ -13,10 +13,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element:
-          <AuthMiddleware type="guest">
-            <LandingPage />
-          </AuthMiddleware>,
+        element: <UserLayout />,
+        children: [
+          {
+            path: "/",
+            element:
+              <AuthMiddleware type="guest">
+                <LandingPage />
+              </AuthMiddleware>,
+          },
+          {
+            path: "/home",
+            element:
+              <AuthMiddleware type="auth">
+                <Home />
+              </AuthMiddleware>,
+          },
+        ]
       },
       {
         path: "/login",
@@ -30,13 +43,6 @@ const router = createBrowserRouter([
         element:
           <AuthMiddleware type="guest">
             <Register />
-          </AuthMiddleware>,
-      },
-      {
-        path: "/home",
-        element:
-          <AuthMiddleware type="auth">
-            <Home />
           </AuthMiddleware>,
       },
       {
