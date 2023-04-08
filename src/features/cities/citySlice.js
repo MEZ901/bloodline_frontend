@@ -1,15 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-
-export const fetchCities = createAsyncThunk("cities/fetchCities", async () => {
-    try {
-        const response = await axios.get("http://localhost:8000/api/cities");
-        return response.data.data;
-    } catch (error) {
-        return error.message;
-    }
-});
+import { createSlice } from "@reduxjs/toolkit";
+import { apiSlice } from "../../app/api";
 
 const initialState = {
     cities: [],
@@ -23,14 +13,14 @@ const citiesSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(fetchCities.pending, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getCities.matchPending, (state, action) => {
                 state.status = "loading";
             })
-            .addCase(fetchCities.fulfilled, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getCities.matchFulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.cities = action.payload;
             })
-            .addCase(fetchCities.rejected, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getCities.matchRejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
             });

@@ -1,3 +1,13 @@
-import { apiSlice, useLoginMutation } from "./apiSlice";
+import {
+    apiSlice,
+    useLoginMutation,
+    useGetBloodTypesQuery,
+    useGetCitiesQuery,
+} from "./apiSlice";
 
-export { apiSlice, useLoginMutation };
+export {
+    apiSlice,
+    useLoginMutation,
+    useGetBloodTypesQuery,
+    useGetCitiesQuery,
+};

@@ -1,15 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-
-export const fetchBloodTypes = createAsyncThunk("bloodTypes/fetchBloodTypes", async () => {
-    try {
-        const response = await axios.get("http://localhost:8000/api/blood-types");
-        return response.data.data;
-    } catch (error) {
-        return error.message;
-    }
-});
+import { createSlice } from "@reduxjs/toolkit";
+import { apiSlice } from "../../app/api";
 
 const initialState = {
     bloodTypes: [],
@@ -23,14 +13,14 @@ const bloodTypeSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(fetchBloodTypes.pending, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getBloodTypes.matchPending, (state, action) => {
                 state.status = "loading";
             })
-            .addCase(fetchBloodTypes.fulfilled, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getBloodTypes.matchFulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.bloodTypes = action.payload;
             })
-            .addCase(fetchBloodTypes.rejected, (state, action) => {
+            .addMatcher(apiSlice.endpoints.getBloodTypes.matchRejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
             });

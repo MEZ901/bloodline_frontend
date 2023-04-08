@@ -3,7 +3,6 @@ import { setCredentialsAndStoreCookie, logOutAndRemoveCookie } from '../../featu
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8000/api',
-    //credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
         if (token) {
@@ -41,7 +40,17 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        getBloodTypes: builder.query({
+            query: () => 'blood-types',
+        }),
+        getCities: builder.query({
+            query: () => 'cities',
+        }),
     }),
 });
 
-export const { useLoginMutation } = apiSlice;
+export const {
+    useLoginMutation,
+    useGetBloodTypesQuery,
+    useGetCitiesQuery,
+} = apiSlice;

@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { Logo } from "../../assets";
 import { registerSchema } from "../../schemas";
+import { LoadingSpinner } from "../../components/common";
+import { useGetBloodTypesQuery } from "../../app/api";
+import { useGetCitiesQuery } from "../../app/api";
 import {
   TextField,
   InputAdornment,
@@ -18,38 +20,16 @@ import {
   Typography,
   FormHelperText,
 } from "@mui/material";
-import {
-  selectAllCities,
-  getCitiesStatus,
-  fetchCities
-} from "../cities";
-import {
-  selectAllBloodTypes,
-  getBloodTypesStatus,
-  fetchBloodTypes
-} from "../bloodTypes";
-import { LoadingSpinner } from "../../components/common";
 
 const Register = () => {
-  const dispatch = useDispatch();
-
-  const cities = useSelector(selectAllCities);
-  const citiesStatus = useSelector(getCitiesStatus);
-
-  const bloodTypes = useSelector(selectAllBloodTypes);
-  const bloodTypesStatus = useSelector(getBloodTypesStatus);
-
+  const { data: cities, isLoading: isLoadingCities, isError: isErrorCities } = useGetCitiesQuery();
+  const { data: bloodTypes, isLoading: isLoadingBloodTypes, isError: isErrorBloodTypes } = useGetBloodTypesQuery();
+ 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
-
-  useEffect(() => {
-    if (citiesStatus === "idle" || bloodTypesStatus === "idle") {
-      Promise.all([dispatch(fetchCities()), dispatch(fetchBloodTypes())]);
-    }
-  }, [citiesStatus, bloodTypesStatus, dispatch]);
-
+  
   const {
     values,
     errors,
@@ -105,8 +85,12 @@ const Register = () => {
     },
   });
 
-  if (citiesStatus === "loading" || bloodTypesStatus === "loading") {
+  if (isLoadingCities || isLoadingBloodTypes) {
     return <LoadingSpinner />;
+  }
+
+  if (isErrorCities || isErrorBloodTypes) {
+    return <div>Something went wrong ...</div>;
   }
 
   return (
@@ -172,7 +156,7 @@ const Register = () => {
                   disablePortal
                   id="bloodType"
                   name="bloodType"
-                  options={bloodTypes}
+                  options={bloodTypes.data}
                   getOptionLabel={(option) => option.name || ""}
                   fullWidth
                   value={values.bloodType}
@@ -212,7 +196,7 @@ const Register = () => {
                   disablePortal
                   id="city"
                   name="city"
-                  options={cities}
+                  options={cities.data}
                   getOptionLabel={(option) => option.name || ""}
                   fullWidth
                   value={values.city}
