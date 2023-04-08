@@ -1,15 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  TextField,
-  InputAdornment,
-  IconButton,
-  FormControl,
-  OutlinedInput,
-  InputLabel,
-  Button,
-  FormHelperText,
-} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { Logo } from "../../assets";
@@ -22,6 +12,18 @@ import Backdrop from '@mui/material/Backdrop';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { useSnackbar } from "notistack";
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  OutlinedInput,
+  InputLabel,
+  Button,
+  FormHelperText,
+} from "@mui/material";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +32,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [login, { isLoading, error }] = useLoginMutation();
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -58,7 +61,7 @@ const Login = () => {
           dispatch(setCredentialsAndStoreCookie(data));
           navigate("/home");
         } catch (error) {
-          setOpen(true);
+          enqueueSnackbar(error?.data?.message || "Something went wrong", { variant: 'error' })
         }
       },
     });
@@ -181,13 +184,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <MuiAlert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-            {error?.data?.message ? "Email or password is incorrect!" : "Something went wrong"}
-          </MuiAlert>
-        </Snackbar>
-      </Stack>
     </section>
   );
 };

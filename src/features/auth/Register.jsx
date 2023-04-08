@@ -39,8 +39,7 @@ const Register = () => {
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   
   const {
     values,
