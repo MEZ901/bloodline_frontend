@@ -7,6 +7,8 @@ import { registerSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
 import { useDispatch } from "react-redux";
 import { setCredentialsAndStoreCookie } from "./authSlice";
+import { CircularProgress } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
 import {
   useGetBloodTypesQuery,
   useGetCitiesQuery,
@@ -50,15 +52,9 @@ const Register = () => {
       firstName: "",
       lastName: "",
       age: "",
-      bloodType: {
-        id: "",
-        name: "",
-      },
+      bloodType: null,
       cin: "",
-      city: {
-        id: "",
-        name: "",
-      },
+      city: null,
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -80,7 +76,7 @@ const Register = () => {
         first_name: firstName,
         last_name: lastName,
         age: age,
-        blood_type_id: bloodType.id,
+        blood_type_id: bloodType?.id || null,
         cin: cin,
         city_id: city.id,
         email: email,
@@ -89,7 +85,6 @@ const Register = () => {
       }
       try {
         const { data } = await register(raw).unwrap();
-        console.log(data);
         dispatch(setCredentialsAndStoreCookie(data));
         navigate("/home");
       } catch (error) {
@@ -108,6 +103,12 @@ const Register = () => {
 
   return (
     <section className="bg-gray-50">
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress sx={{ color: '#FF1C23' }} />
+      </Backdrop>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <Link
           to="/"
@@ -134,7 +135,7 @@ const Register = () => {
                   onBlur={handleBlur}
                   id="firstName"
                   name="firstName"
-                  label="First Name"
+                  label="First Name *"
                   variant="outlined"
                 />
                 <TextField
@@ -147,7 +148,7 @@ const Register = () => {
                   onBlur={handleBlur}
                   id="lastName"
                   name="lastName"
-                  label="Last Name"
+                  label="Last Name *"
                   variant="outlined"
                 />
               </div>
@@ -160,7 +161,7 @@ const Register = () => {
                   onBlur={handleBlur}
                   id="age"
                   name="age"
-                  label="age"
+                  label="age *"
                   variant="outlined"
                   type="number"
                   fullWidth
@@ -180,7 +181,7 @@ const Register = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Blood Types"
+                      label="Blood Type"
                       error={errors.bloodType && touched.bloodType}
                       helperText={
                         errors.bloodType && touched.bloodType
@@ -201,7 +202,7 @@ const Register = () => {
                   onBlur={handleBlur}
                   id="cin"
                   name="cin"
-                  label="CIN"
+                  label="CIN *"
                   variant="outlined"
                   fullWidth
                 />
@@ -220,7 +221,7 @@ const Register = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="City"
+                      label="City *"
                       error={errors.city && touched.city}
                       helperText={
                         errors.city && touched.city ? errors.city : null
@@ -241,7 +242,7 @@ const Register = () => {
                   onBlur={handleBlur}
                   id="email"
                   name="email"
-                  label="Email"
+                  label="Email *"
                   variant="outlined"
                   fullWidth
                 />
@@ -252,7 +253,7 @@ const Register = () => {
                   variant="outlined"
                   error={errors.password && touched.password}
                 >
-                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <InputLabel htmlFor="password">Password *</InputLabel>
                   <OutlinedInput
                     value={values.password}
                     onChange={handleChange}
@@ -289,7 +290,7 @@ const Register = () => {
                   }
                 >
                   <InputLabel htmlFor="passwordConfirmation">
-                    Confirm Password
+                    Confirm Password *
                   </InputLabel>
                   <OutlinedInput
                     value={values.passwordConfirmation}
