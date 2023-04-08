@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts";
 import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
-import { registerLoader } from "./loaders";
+import { Home } from "./features/home";
+import { RequireAuth } from "./features/auth";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,13 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/home",
+        element:
+          <RequireAuth>
+            <Home />
+          </RequireAuth>,
       },
       {
         path: "*",

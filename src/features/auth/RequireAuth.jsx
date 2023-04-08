@@ -2,12 +2,12 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./authSlice";
 
-const RequireAuth = () => {
+const RequireAuth = ({children}) => {
   const location = useLocation();
   const token = useSelector(selectCurrentToken);
   return (
     token
-      ? <Outlet />
+      ? children
       : <Navigate to={{ pathname: "/login", state: { from: location } }} replace />
   )
 }

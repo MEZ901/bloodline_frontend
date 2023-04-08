@@ -40,6 +40,13 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        register: builder.mutation({
+            query: (credentials) => ({
+                url: "/register",
+                method: "POST",
+                body: credentials,
+            }),
+        }),
         getBloodTypes: builder.query({
             query: () => 'blood-types',
         }),
@@ -51,6 +58,7 @@ export const apiSlice = createApi({
 
 export const {
     useLoginMutation,
+    useRegisterMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
 } = apiSlice;

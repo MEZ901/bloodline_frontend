@@ -57,7 +57,7 @@ const Login = () => {
         try {
           const { data } = await login(values).unwrap();
           dispatch(setCredentialsAndStoreCookie(data));
-          // navigate("/");
+          navigate("/home");
         } catch (error) {
           setOpen(true);
         }

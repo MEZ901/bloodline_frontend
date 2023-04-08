@@ -1,6 +1,7 @@
 import {
     apiSlice,
     useLoginMutation,
+    useRegisterMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
 } from "./apiSlice";
@@ -8,6 +9,7 @@ import {
 export {
     apiSlice,
     useLoginMutation,
+    useRegisterMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
 };
