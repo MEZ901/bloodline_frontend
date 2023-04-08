@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../../assets";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentUser, logOutAndRemoveCookie } from "../../features/auth";
 import { Logout, Settings } from "@mui/icons-material";
-import { useState } from "react";
 import {
   Avatar,
   Box,
@@ -19,6 +19,7 @@ import {
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -27,6 +28,10 @@ const Navbar = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    dispatch(logOutAndRemoveCookie());
+    navigate("/");
   };
   return (
     <div className="flex justify-between mt-5">
@@ -122,7 +127,7 @@ const Navbar = () => {
                 </ListItemIcon>
                 Settings
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
