@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setCredentialsAndStoreCookie } from "./authSlice";
 import { CircularProgress } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
+import { useSnackbar } from "notistack";
 import {
   useGetBloodTypesQuery,
   useGetCitiesQuery,
@@ -38,6 +39,8 @@ const Register = () => {
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   
   const {
     values,
@@ -88,7 +91,17 @@ const Register = () => {
         dispatch(setCredentialsAndStoreCookie(data));
         navigate("/home");
       } catch (error) {
-        console.log(error);
+        if(error?.data?.errors) {
+          const errors = error.data.errors;
+          for (const key in errors) {
+            if (Object.hasOwnProperty.call(errors, key)) {
+              const element = errors[key];
+              enqueueSnackbar(element[0], { variant: 'error' });
+            }
+          }
+        } else {
+          enqueueSnackbar(error?.data?.message || "Something went wrong", { variant: 'error' });
+        }
       }
     },
   });
@@ -118,7 +131,7 @@ const Register = () => {
         </Link>
         <div className="w-full bg-white rounded-lg shadow my-2 md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl" onClick={() => enqueueSnackbar('hhhhhhhhhhhhh', { variant: 'error' })}>
               Create new account
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
