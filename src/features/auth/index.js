@@ -1,6 +1,6 @@
 import Login from "./Login";
 import Register from "./Register";
-import RequireAuth from "./RequireAuth";
+import AuthMiddleware from "./AuthMiddleware";
 import
     authReducer,
     {
@@ -15,7 +15,7 @@ export {
     Login,
     Register,
     authReducer,
-    RequireAuth,
+    AuthMiddleware,
     selectCurrentUser,
     selectCurrentToken,
     setCredentialsAndStoreCookie,

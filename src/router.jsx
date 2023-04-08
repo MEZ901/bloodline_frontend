@@ -3,7 +3,7 @@ import { RootLayout } from "./layouts";
 import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
 import { Home } from "./features/home";
-import { RequireAuth } from "./features/auth";
+import { AuthMiddleware } from "./features/auth";
 
 const router = createBrowserRouter([
   {
@@ -13,22 +13,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <LandingPage />,
+        element:
+          <AuthMiddleware type="guest">
+            <LandingPage />
+          </AuthMiddleware>,
       },
       {
         path: "/login",
-        element: <Login />,
+        element:
+          <AuthMiddleware type="guest">
+            <Login />
+          </AuthMiddleware>,
       },
       {
         path: "/register",
-        element: <Register />,
+        element:
+          <AuthMiddleware type="guest">
+            <Register />
+          </AuthMiddleware>,
       },
       {
         path: "/home",
         element:
-          <RequireAuth>
+          <AuthMiddleware type="auth">
             <Home />
-          </RequireAuth>,
+          </AuthMiddleware>,
       },
       {
         path: "*",
