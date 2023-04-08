@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { Logo } from "../../assets";
 import { registerSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
-import { useGetBloodTypesQuery } from "../../app/api";
-import { useGetCitiesQuery } from "../../app/api";
+import { useDispatch } from "react-redux";
+import { setCredentialsAndStoreCookie } from "./authSlice";
+import {
+  useGetBloodTypesQuery,
+  useGetCitiesQuery,
+  useRegisterMutation,
+} from "../../app/api";
 import {
   TextField,
   InputAdornment,
@@ -24,11 +29,13 @@ import {
 const Register = () => {
   const { data: cities, isLoading: isLoadingCities, isError: isErrorCities } = useGetCitiesQuery();
   const { data: bloodTypes, isLoading: isLoadingBloodTypes, isError: isErrorBloodTypes } = useGetBloodTypesQuery();
- 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+  const [ register, { isLoading, error } ] = useRegisterMutation();
+  const [ showPassword, setShowPassword ] = useState(false);
+  const [ showPasswordConfirmation, setShowPasswordConfirmation ] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   const {
     values,
@@ -58,7 +65,7 @@ const Register = () => {
       terms: false,
     },
     validationSchema: registerSchema,
-    onSubmit: ({
+    onSubmit: async ({
       firstName,
       lastName,
       age,
@@ -74,14 +81,20 @@ const Register = () => {
         last_name: lastName,
         age: age,
         blood_type_id: bloodType.id,
-        CIN: cin,
+        cin: cin,
         city_id: city.id,
         email: email,
         password: password,
         password_confirmation: passwordConfirmation,
       }
-      console.log(raw);
-      // the code goes here ...
+      try {
+        const { data } = await register(raw).unwrap();
+        console.log(data);
+        dispatch(setCredentialsAndStoreCookie(data));
+        navigate("/home");
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
