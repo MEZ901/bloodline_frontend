@@ -1,7 +1,4 @@
 import { Signup, Navigation, Schedule } from "../assets";
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import CampaignIcon from '@mui/icons-material/Campaign';
-import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 export const guideSteps = [
   {
@@ -25,16 +22,16 @@ export const homePageHeroLinks = [
   {
     id: 1,
     title: "Hospitals",
-    icon: <LocalHospitalIcon className="text-white" sx={{fontSize: '60px'}} />,
+    icon: "LocalHospitalIcon",
   },
   {
     id: 2,
     title: "Blood Drives",
-    icon: <CampaignIcon className="text-white" sx={{fontSize: '60px'}} />,
+    icon: "CampaignIcon",
   },
   {
     id: 3,
     title: "Articles",
-    icon: <LocalLibraryIcon className="text-white" sx={{fontSize: '60px'}} />,
+    icon: "LocalLibraryIcon",
   },
 ];

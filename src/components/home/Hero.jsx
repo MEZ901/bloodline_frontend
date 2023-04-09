@@ -1,3 +1,7 @@
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import { Icon } from '@mui/material';
 import { homePageHeroLinks } from '../../constants';
 
 const Hero = () => {
@@ -11,7 +15,7 @@ const Hero = () => {
             {homePageHeroLinks.map(link => (
                 <div key={link.id} className='w-full sm:w-1/3 flex flex-col items-center'>
                     <div className="flex justify-center items-center mb-4 w-28 h-28 rounded-full bg-gray-400 hover:bg-primary lg:h-32 lg:w-32 cursor-pointer">
-                        {link.icon}
+                        <Icon component={eval(link.icon)} className="text-white" sx={{fontSize: '60px'}} />
                     </div>
                     <p className='text-center font-semibold'>{link.title}</p>
                 </div>
