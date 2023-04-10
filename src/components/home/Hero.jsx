@@ -3,6 +3,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import { Icon } from '@mui/material';
 import { homePageHeroLinks } from '../../constants';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -14,9 +15,9 @@ const Hero = () => {
         <div className='flex flex-col sm:flex-row items-center justify-evenly gap-5 px-4 lg:px-12'>
             {homePageHeroLinks.map(link => (
                 <div key={link.id} className='w-full sm:w-1/3 flex flex-col items-center'>
-                    <div className="flex justify-center items-center mb-4 w-28 h-28 rounded-full bg-primary hover:bg-red-600 lg:h-32 lg:w-32 cursor-pointer transition-all">
+                    <a href={link.linkTo} className="flex justify-center items-center mb-4 w-28 h-28 rounded-full bg-primary hover:bg-red-600 lg:h-32 lg:w-32 cursor-pointer transition-all">
                         <Icon component={eval(link.icon)} className="text-white" sx={{fontSize: '60px'}} />
-                    </div>
+                    </a>
                     <p className='text-center font-semibold'>{link.title}</p>
                 </div>
             ))}

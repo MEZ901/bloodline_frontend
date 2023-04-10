@@ -23,15 +23,18 @@ export const homePageHeroLinks = [
     id: 1,
     title: "Hospitals",
     icon: "LocalHospitalIcon",
+    linkTo: "#hospitals",
   },
   {
     id: 2,
     title: "Blood Drives",
     icon: "CampaignIcon",
+    linkTo: "#blood-drives",
   },
   {
     id: 3,
     title: "Articles",
     icon: "LocalLibraryIcon",
+    linkTo: "#articles",
   },
 ];

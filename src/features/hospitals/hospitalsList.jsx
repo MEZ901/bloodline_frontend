@@ -34,7 +34,7 @@ const HospitalsList = () => {
       <div onClick={scrollLeft} className='opacity-50 hover:opacity-100 cursor-pointer'>
       <NavigateBeforeIcon />
       </div>
-      <div ref={slider} className="w-full h-full flex items-start justify-center gap-5 overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
+      <div ref={slider} className="w-full h-full flex items-start justify-center gap-2 sm:gap-5 overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
         {hospitals.map((hospital) => (
           <div key={hospital.id}>
             <HospitalCard />

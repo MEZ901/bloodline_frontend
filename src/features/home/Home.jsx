@@ -12,17 +12,17 @@ const Home = () => {
   return (
     <div className="w-11/12 m-auto">
       <Hero />
-      <div className="">
-      <div className="w-full bg-gray-100 py-4 px-2 my-10 rounded gap-3 flex flex-col sm:flex-row justify-between items-center">
-        <h1 className="text-2xl font-bold">Hospitals</h1>
-        <Autocomplete
-          disablePortal
-          options={cities}
-          sx={{ width: '90%', maxWidth: 300 }}
-          renderInput={(params) => <TextField {...params} label="City" />}
-        />
-      </div>
-      <HospitalsList />
+      <div id="hospitals">
+        <div className="w-full bg-gray-100 py-4 px-2 my-10 rounded gap-3 flex flex-col sm:flex-row justify-between items-center">
+          <h1 className="text-2xl font-bold">Hospitals</h1>
+          <Autocomplete
+            disablePortal
+            options={cities}
+            sx={{ width: '90%', maxWidth: 300 }}
+            renderInput={(params) => <TextField {...params} label="City" />}
+          />
+        </div>
+        <HospitalsList />
       </div>
     </div>
   )
