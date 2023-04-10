@@ -49,7 +49,7 @@ const Navbar = () => {
               }}
             >
               <Typography sx={{ mr: 1 }}>
-                {`${user.first_name} ${user.last_name}`}
+                {`${user.firstName} ${user.lastName}`}
               </Typography>
               <Tooltip title="Account settings">
                 <IconButton
@@ -67,7 +67,7 @@ const Navbar = () => {
                       bgcolor: "#FF1C23",
                     }}
                   >
-                    {user.first_name.charAt(0)}
+                    {user.firstName.charAt(0)}
                   </Avatar>
                 </IconButton>
               </Tooltip>
@@ -116,7 +116,7 @@ const Navbar = () => {
                     bgcolor: "#FF1C23",
                   }}
                 >
-                  {user.first_name.charAt(0)}
+                  {user.firstName.charAt(0)}
                 </Avatar>{" "}
                 Profile
               </MenuItem>

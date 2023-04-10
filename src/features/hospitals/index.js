@@ -1,3 +1,3 @@
-import hospitalsList from "./hospitalsList";
+import HospitalsList from "./HospitalsList";
 
-export { hospitalsList }
+export { HospitalsList }
