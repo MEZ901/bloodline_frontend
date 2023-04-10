@@ -1,7 +1,9 @@
 import { Button } from "@mui/material";
 import { HeroImg } from "../../assets";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-evenly">
       <div className="text-center w-full lg:w-1/2 my-auto">
@@ -16,7 +18,11 @@ const Hero = () => {
           and provide hope for those in need. Join us today in our mission to
           save lives and give the gift of life to those who need it most.
         </p>
-        <Button variant="contained" style={{ backgroundColor: "#FF1C23" }}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#FF1C23" }}
+          onClick={() => navigate("/register")}
+        >
           DONATE NOW
         </Button>
       </div>

@@ -7,9 +7,10 @@ import { registerSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
 import { useDispatch } from "react-redux";
 import { setCredentialsAndStoreCookie } from "./authSlice";
-import { CircularProgress } from '@mui/material';
-import Backdrop from '@mui/material/Backdrop';
+import { CircularProgress } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
 import { useSnackbar } from "notistack";
+import { Profile } from "../../assets";
 import {
   useGetBloodTypesQuery,
   useGetCitiesQuery,
@@ -30,17 +31,25 @@ import {
 } from "@mui/material";
 
 const Register = () => {
-  const { data: cities, isLoading: isLoadingCities, isError: isErrorCities } = useGetCitiesQuery();
-  const { data: bloodTypes, isLoading: isLoadingBloodTypes, isError: isErrorBloodTypes } = useGetBloodTypesQuery();
-  const [ register, { isLoading, error } ] = useRegisterMutation();
-  const [ showPassword, setShowPassword ] = useState(false);
-  const [ showPasswordConfirmation, setShowPasswordConfirmation ] = useState(false);
+  const {
+    data: cities,
+    isLoading: isLoadingCities,
+    isError: isErrorCities,
+  } = useGetCitiesQuery();
+  const {
+    data: bloodTypes,
+    isLoading: isLoadingBloodTypes,
+    isError: isErrorBloodTypes,
+  } = useGetBloodTypesQuery();
+  const [register, { isLoading, error }] = useRegisterMutation();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  
+
   const {
     values,
     errors,
@@ -84,22 +93,24 @@ const Register = () => {
         email: email,
         password: password,
         password_confirmation: passwordConfirmation,
-      }
+      };
       try {
         const { data } = await register(raw).unwrap();
         dispatch(setCredentialsAndStoreCookie(data));
         navigate("/home");
       } catch (error) {
-        if(error?.data?.errors) {
+        if (error?.data?.errors) {
           const errors = error.data.errors;
           for (const key in errors) {
             if (Object.hasOwnProperty.call(errors, key)) {
               const element = errors[key];
-              enqueueSnackbar(element[0], { variant: 'error' });
+              enqueueSnackbar(element[0], { variant: "error" });
             }
           }
         } else {
-          enqueueSnackbar(error?.data?.message || "Something went wrong", { variant: 'error' });
+          enqueueSnackbar(error?.data?.message || "Something went wrong", {
+            variant: "error",
+          });
         }
       }
     },
@@ -116,10 +127,10 @@ const Register = () => {
   return (
     <section className="bg-gray-50">
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
       >
-        <CircularProgress sx={{ color: '#FF1C23' }} />
+        <CircularProgress sx={{ color: "#FF1C23" }} />
       </Backdrop>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <Link
@@ -130,39 +141,44 @@ const Register = () => {
         </Link>
         <div className="w-full bg-white rounded-lg shadow my-2 md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl" onClick={() => enqueueSnackbar('hhhhhhhhhhhhh', { variant: 'error' })}>
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Create new account
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
-                <TextField
-                  error={errors.firstName && touched.firstName}
-                  helperText={
-                    errors.firstName && touched.firstName
-                      ? errors.firstName
-                      : null
-                  }
-                  value={values.firstName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  id="firstName"
-                  name="firstName"
-                  label="First Name *"
-                  variant="outlined"
-                />
-                <TextField
-                  error={errors.lastName && touched.lastName}
-                  helperText={
-                    errors.lastName && touched.lastName ? errors.lastName : null
-                  }
-                  value={values.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  id="lastName"
-                  name="lastName"
-                  label="Last Name *"
-                  variant="outlined"
-                />
+              <div className="flex flex-col sm:flex-row justify-between w-full gap-4 sm:gap-0">
+                <div className="cursor-pointer flex flex-col items-center">
+                  <img src={Profile} alt="" width={135} className="rounded" />
+                </div>
+                <div className="flex flex-col gap-4">
+                  <TextField
+                    error={errors.firstName && touched.firstName}
+                    helperText={
+                      errors.firstName && touched.firstName
+                        ? errors.firstName
+                        : null
+                    }
+                    value={values.firstName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    id="firstName"
+                    name="firstName"
+                    label="First Name *"
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={errors.lastName && touched.lastName}
+                    helperText={
+                      errors.lastName && touched.lastName ? errors.lastName : null
+                    }
+                    value={values.lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    id="lastName"
+                    name="lastName"
+                    label="Last Name *"
+                    variant="outlined"
+                  />
+                </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
                 <TextField

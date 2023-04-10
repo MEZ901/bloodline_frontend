@@ -31,16 +31,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading, error }] = useLoginMutation();
-  const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const {
     values,
