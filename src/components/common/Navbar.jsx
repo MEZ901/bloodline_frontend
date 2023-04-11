@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "../../assets";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser, logOutAndRemoveCookie } from "../../features/auth";
+import { useLogOutMutation } from "../../app/api";
 import { Logout, Settings } from "@mui/icons-material";
 import {
   Avatar,
@@ -29,7 +30,9 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
+  const [logOut, { isLoading }] = useLogOutMutation();
+  const handleLogout = async () => {
+    await logOut();
     dispatch(logOutAndRemoveCookie());
     navigate("/");
   };

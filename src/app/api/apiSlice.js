@@ -48,6 +48,12 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        logOut: builder.mutation({
+            query: () => ({
+                url: "/logout",
+                method: "POST",
+            }),
+        }),
         getBloodTypes: builder.query({
             query: () => 'blood-types',
         }),
@@ -60,6 +66,7 @@ export const apiSlice = createApi({
 export const {
     useLoginMutation,
     useRegisterMutation,
+    useLogOutMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
 } = apiSlice;
