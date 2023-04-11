@@ -4,7 +4,7 @@ import Navigation from './Navigation.svg';
 import Schedule from './Schedule.svg';
 import Signup from './Signup.svg';
 import AuthPic from './AuthPic.jpg';
-import Profile from './Profile.webp';
+import Profile from './Profile.png';
 
 export { 
     Logo,

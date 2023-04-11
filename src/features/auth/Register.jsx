@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
@@ -7,10 +7,11 @@ import { registerSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
 import { useDispatch } from "react-redux";
 import { setCredentialsAndStoreCookie } from "./authSlice";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Divider } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import { useSnackbar } from "notistack";
 import { Profile } from "../../assets";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   useGetBloodTypesQuery,
   useGetCitiesQuery,
@@ -43,12 +44,48 @@ const Register = () => {
   } = useGetBloodTypesQuery();
   const [register, { isLoading, error }] = useRegisterMutation();
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] =
+    useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowPasswordConfirmation = () => setShowPasswordConfirmation((show) => !show);
+  const handleClickShowPasswordConfirmation = () =>
+    setShowPasswordConfirmation((show) => !show);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const profileImg = useRef(null);
+  const [src, setSrc] = useState(null);
+
+  const handleProfileClick = () => {
+    profileImg.current.click();
+  };
+
+  const handleProfileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        enqueueSnackbar("Image size should be less than 10MB", {
+          variant: "error",
+        });
+        return;
+      }
+      if (
+        file.type !== "image/jpeg" &&
+        file.type !== "image/png" &&
+        file.type !== "image/jpg"
+      ) {
+        enqueueSnackbar("Image format should be JPEG or PNG or JPG", {
+          variant: "error",
+        });
+        return;
+      }
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSrc(reader.result);
+      setFieldValue("profile", reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const {
     values,
@@ -62,6 +99,7 @@ const Register = () => {
     initialValues: {
       firstName: "",
       lastName: "",
+      profile: null,
       age: "",
       bloodType: null,
       cin: "",
@@ -86,6 +124,7 @@ const Register = () => {
       const raw = {
         first_name: firstName,
         last_name: lastName,
+        profile: values.profile,
         age: age,
         blood_type_id: bloodType?.id || null,
         cin: cin,
@@ -146,8 +185,28 @@ const Register = () => {
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div className="flex flex-col sm:flex-row justify-between w-full gap-4 sm:gap-0">
-                <div className="cursor-pointer flex flex-col items-center">
-                  <img src={Profile} alt="" width={135} className="rounded" />
+                <div className="flex justify-center">
+                  <div
+                    className="cursor-pointer flex flex-col items-center relative w-[135px] h-[135px] overflow-hidden rounded-full"
+                    onClick={handleProfileClick}
+                    style={{
+                      backgroundImage: `url('${src || Profile}')`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  >
+                    <div className="absolute top-0 left-0 bottom-0 right-0 bg-black opacity-0 hover:opacity-60 transition-all z-10 rounded-full flex justify-center items-center gap-3">
+                      <EditIcon className="text-white" />
+                    </div>
+                    <input
+                      type="file"
+                      ref={profileImg}
+                      onChange={handleProfileChange}
+                      name="profile"
+                      hidden
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-4">
                   <TextField
@@ -168,7 +227,9 @@ const Register = () => {
                   <TextField
                     error={errors.lastName && touched.lastName}
                     helperText={
-                      errors.lastName && touched.lastName ? errors.lastName : null
+                      errors.lastName && touched.lastName
+                        ? errors.lastName
+                        : null
                     }
                     value={values.lastName}
                     onChange={handleChange}
