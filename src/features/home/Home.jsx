@@ -2,13 +2,11 @@ import { Hero } from "../../components/home";
 import { HospitalsList } from "../hospitals";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector } from "react-redux";
+import { selectAllCities } from "../cities";
 
 const Home = () => {
-  const cities = [
-    { id: 1, label: 'Temsia' },
-    { id: 2, label: 'Tetouan' },
-    { id: 3, label: 'Youssoufia' },
-  ];
+  const cities = useSelector(selectAllCities);
   return (
     <div className="w-11/12 m-auto">
       <Hero />
@@ -17,7 +15,8 @@ const Home = () => {
           <h1 className="text-2xl font-bold">Hospitals</h1>
           <Autocomplete
             disablePortal
-            options={cities}
+            options={cities.data}
+            getOptionLabel={(option) => option.name || ""}
             sx={{ width: '90%', maxWidth: 300 }}
             renderInput={(params) => <TextField {...params} label="City" />}
           />
