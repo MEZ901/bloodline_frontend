@@ -4,24 +4,20 @@ import AuthMiddleware from "./AuthMiddleware";
 import
     authReducer,
     {
+        setCredentials,
+        authLogOut,
         selectCurrentUser,
         selectCurrentToken,
-        setCredentialsAndStoreCookie,
-        logOutAndRemoveCookie,
-        setCredentials,
-        logOut,
     }
 from "./authSlice";
 
 export {
     Login,
     Register,
-    authReducer,
     AuthMiddleware,
+    authReducer,
+    setCredentials,
+    authLogOut,
     selectCurrentUser,
     selectCurrentToken,
-    setCredentialsAndStoreCookie,
-    logOutAndRemoveCookie,
-    setCredentials,
-    logOut,
 };

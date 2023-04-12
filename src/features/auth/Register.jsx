@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import EditIcon from "@mui/icons-material/Edit";
+import { useSnackbar } from "notistack";
 import { Logo } from "../../assets";
 import { registerSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
-import { useDispatch } from "react-redux";
-import { setCredentialsAndStoreCookie } from "./authSlice";
-import { CircularProgress, Divider } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
-import { useSnackbar } from "notistack";
+import { setCredentials } from "./authSlice";
 import { Profile } from "../../assets";
-import EditIcon from "@mui/icons-material/Edit";
 import {
   useGetBloodTypesQuery,
   useGetCitiesQuery,
@@ -135,7 +135,7 @@ const Register = () => {
       };
       try {
         const { data } = await register(raw).unwrap();
-        dispatch(setCredentialsAndStoreCookie(data));
+        dispatch(setCredentials(data));
         navigate("/home");
       } catch (error) {
         if (error?.data?.errors) {

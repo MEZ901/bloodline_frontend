@@ -6,12 +6,9 @@ import { Logo } from "../../assets";
 import { loginSchema } from "../../schemas";
 import { useLoginMutation } from "../../app/api";
 import { useDispatch } from "react-redux";
-import { setCredentials, setCredentialsAndStoreCookie } from "./authSlice";
-import { CircularProgress } from '@mui/material';
-import Backdrop from '@mui/material/Backdrop';
-import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import { setCredentials } from "./authSlice";
+import { CircularProgress } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
 import { useSnackbar } from "notistack";
 import {
   TextField,
@@ -24,7 +21,6 @@ import {
   FormHelperText,
 } from "@mui/material";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -33,14 +29,8 @@ const Login = () => {
   const [login, { isLoading, error }] = useLoginMutation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleSubmit,
-    handleBlur
-  } = useFormik({
+  const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
+    useFormik({
       initialValues: {
         email: "",
         password: "",
@@ -49,21 +39,22 @@ const Login = () => {
       onSubmit: async (values) => {
         try {
           const { data } = await login(values).unwrap();
-          // dispatch(setCredentialsAndStoreCookie(data));
           dispatch(setCredentials(data));
           navigate("/home");
         } catch (error) {
-          enqueueSnackbar(error?.data?.message || "Something went wrong", { variant: 'error' })
+          enqueueSnackbar(error?.data?.message || "Something went wrong", {
+            variant: "error",
+          });
         }
       },
     });
   return (
     <section className="bg-gray-50 min-h-screen">
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
       >
-        <CircularProgress sx={{ color: '#FF1C23' }} />
+        <CircularProgress sx={{ color: "#FF1C23" }} />
       </Backdrop>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link

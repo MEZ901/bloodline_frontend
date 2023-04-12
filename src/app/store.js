@@ -1,11 +1,11 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { citiesReducer } from "../features/cities";
 import { bloodTypesReducer } from "../features/bloodTypes";
 import { authReducer } from "../features/auth";
 import { apiSlice } from "./api";
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Logo } from "../../assets";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser, logOutAndRemoveCookie, logOut } from "../../features/auth";
-import { useLogOutMutation } from "../../app/api";
 import { Logout, Settings } from "@mui/icons-material";
+import { Logo } from "../../assets";
+import { selectCurrentUser, authLogOut } from "../../features/auth";
+import { useLogOutMutation } from "../../app/api";
 import {
   Avatar,
   Box,
@@ -24,27 +24,34 @@ const Navbar = () => {
   const user = useSelector(selectCurrentUser);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [logOut, { isLoading }] = useLogOutMutation();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [logOut, { isLoading }] = useLogOutMutation();
+
   const handleLogout = async () => {
     await logOut();
-    // dispatch(logOutAndRemoveCookie());
-    dispatch(logOut());
+    dispatch(authLogOut());
     navigate("/");
   };
+
   return (
     <div className="flex justify-between mt-5">
-      <div style={{ width: '5%', minWidth: '50px' }}>
-        <img src={Logo} alt="Logo" style={{ maxWidth: '100%', height: 'auto' }} />
+      <div style={{ width: "5%", minWidth: "50px" }}>
+        <img
+          src={Logo}
+          alt="Logo"
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
       </div>
       <div>
         {user ? (
-          <div className="flex md:order-2" >
+          <div className="flex md:order-2">
             <Box
               sx={{
                 display: "flex",
