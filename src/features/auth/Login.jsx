@@ -57,7 +57,7 @@ const Login = () => {
       },
     });
   return (
-    <section className="bg-gray-50">
+    <section className="bg-gray-50 min-h-screen">
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
