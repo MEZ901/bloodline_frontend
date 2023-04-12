@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setCredentialsAndStoreCookie, logOutAndRemoveCookie } from '../../features/auth';
+import { setCredentialsAndStoreCookie, logOutAndRemoveCookie, setCredentials, logOut } from '../../features/auth';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8000/api',
@@ -9,6 +9,7 @@ const baseQuery = fetchBaseQuery({
             headers.set('Authorization', `Bearer ${token}`);
         }
         headers.set('Accept', 'application/json');
+
         return headers;
     },
 });
@@ -21,10 +22,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         console.log(refreshResult);
         if (refreshResult?.data) {
             const user = api.getState().auth.user;
-            api.dispatch(setCredentialsAndStoreCookie({ ...refreshResult.data, user }));
+            api.dispatch(setCredentials({ ...refreshResult.data, user }));
             result = await baseQuery(args, api, extraOptions);
         } else {
-            api.dispatch(logOutAndRemoveCookie());
+            api.dispatch(logOut());
         }
     }
     return result;

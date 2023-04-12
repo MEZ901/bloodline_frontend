@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        user: Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null,
-        token: Cookies.get('token') ? JSON.parse(Cookies.get('token')) : null,
+        user: null,
+        token: null,
     },
     reducers: {
         setCredentials: (state, action) => {
@@ -20,7 +20,7 @@ const authSlice = createSlice({
     },
 });
 
-const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut } = authSlice.actions;
 
 export const setCredentialsAndStoreCookie = (userData) => (dispatch) => {
     Cookies.set('user', JSON.stringify(userData.user));

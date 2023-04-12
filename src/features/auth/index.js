@@ -8,6 +8,8 @@ import
         selectCurrentToken,
         setCredentialsAndStoreCookie,
         logOutAndRemoveCookie,
+        setCredentials,
+        logOut,
     }
 from "./authSlice";
 
@@ -20,4 +22,6 @@ export {
     selectCurrentToken,
     setCredentialsAndStoreCookie,
     logOutAndRemoveCookie,
+    setCredentials,
+    logOut,
 };

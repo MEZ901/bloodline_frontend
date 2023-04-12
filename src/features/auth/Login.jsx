@@ -6,7 +6,7 @@ import { Logo } from "../../assets";
 import { loginSchema } from "../../schemas";
 import { useLoginMutation } from "../../app/api";
 import { useDispatch } from "react-redux";
-import { setCredentialsAndStoreCookie } from "./authSlice";
+import { setCredentials, setCredentialsAndStoreCookie } from "./authSlice";
 import { CircularProgress } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Stack from '@mui/material/Stack';
@@ -49,7 +49,8 @@ const Login = () => {
       onSubmit: async (values) => {
         try {
           const { data } = await login(values).unwrap();
-          dispatch(setCredentialsAndStoreCookie(data));
+          // dispatch(setCredentialsAndStoreCookie(data));
+          dispatch(setCredentials(data));
           navigate("/home");
         } catch (error) {
           enqueueSnackbar(error?.data?.message || "Something went wrong", { variant: 'error' })
