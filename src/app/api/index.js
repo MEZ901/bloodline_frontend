@@ -5,6 +5,7 @@ import {
     useLogOutMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
+    useGetHospitalsQuery,
 } from "./apiSlice";
 
 export {
@@ -14,4 +15,5 @@ export {
     useLogOutMutation,
     useGetBloodTypesQuery,
     useGetCitiesQuery,
+    useGetHospitalsQuery,
 };

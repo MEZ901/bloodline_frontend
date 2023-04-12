@@ -60,6 +60,12 @@ export const apiSlice = createApi({
     getCities: builder.query({
       query: () => "cities",
     }),
+    getHospitals: builder.query({
+        query: (city_id) => ({
+            url: "hospitals",
+            params: city_id
+        })
+    }),
   }),
 });
 
@@ -69,4 +75,5 @@ export const {
   useLogOutMutation,
   useGetBloodTypesQuery,
   useGetCitiesQuery,
+  useGetHospitalsQuery,
 } = apiSlice;
