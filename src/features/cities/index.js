@@ -1,11 +1,9 @@
-import
-    citiesReducer,
-    {
-        selectAllCities,
-        getCitiesStatus,
-        getCitiesError,
-    }
-from "./citySlice";
+import citiesReducer from "./citySlice";
+import {
+    selectAllCities,
+    getCitiesStatus,
+    getCitiesError,
+} from "./citySelectors";
 
 export {
     citiesReducer,

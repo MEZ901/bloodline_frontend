@@ -1,11 +1,9 @@
-import
-    bloodTypesReducer,
-    {
-        selectAllBloodTypes,
-        getBloodTypesStatus,
-        getBloodTypesError,
-    }
-from "./bloodTypeSlice";
+import bloodTypesReducer from "./bloodTypeSlice";
+import {
+    selectAllBloodTypes,
+    getBloodTypesStatus,
+    getBloodTypesError,
+} from "./bloodTypeSelectors";
 
 export {
     bloodTypesReducer,

@@ -6,10 +6,12 @@ import
     {
         setCredentials,
         authLogOut,
-        selectCurrentUser,
-        selectCurrentToken,
     }
 from "./authSlice";
+import {
+    selectCurrentUser,
+    selectCurrentToken,
+} from "./authSelectors";
 
 export {
     Login,
