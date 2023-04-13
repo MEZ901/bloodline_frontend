@@ -23,7 +23,7 @@ const HospitalsList = ({hospitals, isLoading}) => {
         {isLoading ? (
           <HospitalCardSkeleton />
         ) : (
-          hospitals.map((hospital) => (
+          hospitals?.map((hospital) => (
             <div key={hospital.id}>
               <HospitalCard />
             </div>
