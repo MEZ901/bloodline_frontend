@@ -1,12 +1,18 @@
-import { Hero } from "../../components/home";
+import { Hero, HospitalCardSkeleton } from "../../components/home";
 import { HospitalsList } from "../hospitals";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
 import { selectAllCities } from "../cities";
+import { useGetHospitalsQuery } from "../../app/api";
 
 const Home = () => {
   const cities = useSelector(selectAllCities);
+  const {
+    data: hospitals,
+    isLoading,
+    error,
+  } = useGetHospitalsQuery();
   return (
     <div className="w-11/12 m-auto">
       <Hero />
@@ -21,7 +27,7 @@ const Home = () => {
             renderInput={(params) => <TextField {...params} label="City" />}
           />
         </div>
-        <HospitalsList />
+        <HospitalsList hospitals={hospitals?.data} isLoading={isLoading} />      
       </div>
     </div>
   )

@@ -2,22 +2,24 @@ import thunk from "redux-thunk";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./api";
+import { authReducer } from "../features/auth";
 import { citiesReducer } from "../features/cities";
 import { bloodTypesReducer } from "../features/bloodTypes";
-import { authReducer } from "../features/auth";
-import { apiSlice } from "./api";
+import { hospitalsReducer } from "../features/hospitals";
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth: authReducer,
   cities: citiesReducer,
   bloodTypes: bloodTypesReducer,
+  hospitals: hospitalsReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cities', 'bloodTypes']
+  whitelist: ['auth', 'cities', 'bloodTypes', 'hospitals']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
