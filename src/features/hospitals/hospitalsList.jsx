@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { HospitalCard, HospitalCardSkeleton } from '../../components/home';
+import { NoData } from '../../assets';
 
 const HospitalsList = ({hospitals, isLoading}) => {
   const slider = useRef(null);
@@ -23,11 +24,17 @@ const HospitalsList = ({hospitals, isLoading}) => {
         {isLoading ? (
           <HospitalCardSkeleton />
         ) : (
-          hospitals?.map((hospital) => (
-            <div key={hospital.id}>
-              <HospitalCard />
+          hospitals.length > 0 ? (
+            hospitals?.map((hospital) => (
+              <div key={hospital.id}>
+                <HospitalCard />
+              </div>
+            ))
+          ) : (
+            <div className='w-80 m-auto'>
+              <img src={NoData} alt="no data" />
             </div>
-          ))
+          )
         )}
           
       </div>
