@@ -1,48 +1,42 @@
-import { useState } from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Chip, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { DefaultHospital } from "../../assets";
+import {
+  Chip,
+  Tooltip,
+  Typography,
+  IconButton,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Card,
+  Box,
+} from "@mui/material";
 
 const HospitalCard = ({ hospital }) => {
-  const [expanded, setExpanded] = useState(false);
-  console.log(hospital);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const navigate = useNavigate();
 
   return (
     <Card sx={{ width: "60vw", maxWidth: 300 }}>
       <CardMedia
         component="img"
         height="194"
-        image="https://www.maroc24.com/wp-content/uploads/2022/05/%D8%AF%D9%88%D8%B1-%D8%A7%D9%84%D9%87%D9%84%D8%A7%D9%84-%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1-%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8%D9%8A.jpg"
+        image={hospital?.image || DefaultHospital}
         alt="Hospital image"
         className="cursor-pointer"
+        onClick={() => navigate(`/hospital/${hospital.id}`)}
       />
       <CardContent>
-        <Typography variant="body2" color="text.primary">
-          {hospital.name}
+        <Box className="flex justify-between items-center">
+          <Typography fontWeight="semibold" color="text.primary">
+            {hospital.name}
+          </Typography>
+          <Chip icon={<LocationOnIcon />} label={hospital.city} />
+        </Box>
+        <Typography variant="body2" color="text.secondary" className="pt-5 whitespace-pre-wrap">
+          Address: {hospital.address}
         </Typography>
-        <Chip label={hospital.city} className="mt-2" />
       </CardContent>
       <CardActions disableSpacing>
         <Tooltip title="Schedule appointment">
@@ -50,21 +44,7 @@ const HospitalCard = ({ hospital }) => {
             <CalendarMonthIcon />
           </IconButton>
         </Tooltip>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Address:</Typography>
-          <Typography paragraph>{hospital.address}</Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 };

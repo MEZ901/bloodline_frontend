@@ -18,7 +18,7 @@ const Home = () => {
 
   useEffect(() => {
     setHospitals(filter ? filteredHospitals : data?.data);
-  }, [filter]);
+  }, [filteredHospitals]);
 
   const handleChange = (event, value) => {
     setFilter(value);

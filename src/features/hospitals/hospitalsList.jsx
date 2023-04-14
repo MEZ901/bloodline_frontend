@@ -29,7 +29,7 @@ const HospitalsList = ({ hospitals, isLoading }) => {
       >
         {isLoading ? (
           <HospitalCardSkeleton />
-        ) : hospitals.length > 0 ? (
+        ) : hospitals?.length > 0 ? (
           hospitals?.map((hospital) => (
             <div key={hospital.id}>
               <HospitalCard hospital={hospital} />

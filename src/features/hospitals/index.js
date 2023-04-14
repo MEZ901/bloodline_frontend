@@ -1,4 +1,5 @@
 import HospitalsList from "./HospitalsList";
+import HospitalDetails from "./HospitalDetails";
 import hospitalsReducer from "./hospitalSlice";
 import {
     selectHospitalByCity,
@@ -9,11 +10,12 @@ import {
 } from "./hospitalSelectors";
 
 export {
+    HospitalsList,
+    HospitalDetails,
     selectHospitalByCity,
     selectHospitalById,
-    HospitalsList,
     hospitalsReducer,
     selectAllHospitals,
     getHospitalsStatus,
-    getHospitalsError
+    getHospitalsError,
 };

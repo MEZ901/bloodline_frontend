@@ -4,6 +4,7 @@ import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
 import { Home } from "./features/home";
 import { AuthMiddleware } from "./features/auth";
+import { HospitalDetails } from "./features/hospitals";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,13 @@ const router = createBrowserRouter([
             element:
               <AuthMiddleware type="auth">
                 <Home />
+              </AuthMiddleware>,
+          },
+          {
+            path: "/hospital/:id",
+            element: 
+              <AuthMiddleware type="auth">
+                <HospitalDetails />
               </AuthMiddleware>,
           },
         ]

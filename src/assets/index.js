@@ -6,6 +6,7 @@ import Signup from './Signup.svg';
 import AuthPic from './AuthPic.jpg';
 import Profile from './Profile.png';
 import NoData from './NoData.svg';
+import DefaultHospital from './DefaultHospital.jpg';
 
 export { 
     Logo,
@@ -16,4 +17,5 @@ export {
     AuthPic,
     Profile,
     NoData,
+    DefaultHospital,
 };
