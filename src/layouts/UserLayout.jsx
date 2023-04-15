@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { Navbar } from "../components/common"
+import { Footer } from "../components/landing-page"
 
 const UserLayout = () => {
   return (
@@ -8,6 +9,7 @@ const UserLayout = () => {
             <Navbar />
         </div>
         <Outlet />
+        <Footer />
     </div>
   )
 }
