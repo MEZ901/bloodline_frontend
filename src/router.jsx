@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import { RootLayout, UserLayout } from "./layouts";
+import { RootLayout, UserLayout, AdminLayout } from "./layouts";
 import { LandingPage, PageNotFound, ErrorBoundary } from "./views";
 import { Login, Register } from "./features/auth";
 import { Home } from "./features/home";
 import { AuthMiddleware } from "./features/auth";
 import { HospitalDetails } from "./features/hospitals";
+import { AdminDashboard } from "./features/admin";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,20 @@ const router = createBrowserRouter([
                 <HospitalDetails />
               </AuthMiddleware>
             ),
+          },
+        ],
+      },
+      {
+        path: "/admin",
+        element: (
+          <AuthMiddleware type="auth">
+            <AdminLayout />
+          </AuthMiddleware>
+        ),
+        children: [
+          {
+            path: "dashboard",
+            element: <AdminDashboard />,
           },
         ],
       },
