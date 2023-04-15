@@ -5,20 +5,23 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Hero } from "../../components/home";
 import { HospitalsList, selectHospitalByCity } from "../hospitals";
 import { selectAllCities } from "../cities";
-import { useGetHospitalsQuery } from "../../app/api";
+import { useGetCitiesQuery, useGetHospitalsQuery } from "../../app/api";
 import { selectCurrentUser } from "../auth";
 
 const Home = () => {
   const { data, isLoading, error } = useGetHospitalsQuery();
   const cities = useSelector(selectAllCities);
+  if (!cities.length) {
+    useGetCitiesQuery();
+  }
   const { city: userCity } = useSelector(selectCurrentUser);
-  const [filter, setFilter] = useState(cities.data.find((option) => option.name === userCity));
+  const [filter, setFilter] = useState(cities?.data?.find((option) => option.name === userCity));
   const [hospitals, setHospitals] = useState([]);
   const filteredHospitals = useSelector((state) => selectHospitalByCity(state, filter?.name));
 
   useEffect(() => {
     setHospitals(filter ? filteredHospitals : data?.data);
-  }, [filteredHospitals]);
+  }, [filteredHospitals, filter, data]);
 
   const handleChange = (event, value) => {
     setFilter(value);

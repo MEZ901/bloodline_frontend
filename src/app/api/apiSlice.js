@@ -61,10 +61,10 @@ export const apiSlice = createApi({
       query: () => "cities",
     }),
     getHospitals: builder.query({
-        query: (city_id) => ({
-            url: "hospitals",
-            params: city_id
-        })
+      query: (city_id) => ({
+        url: "hospitals",
+        params: city_id,
+      }),
     }),
   }),
 });

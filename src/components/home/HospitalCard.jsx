@@ -18,7 +18,7 @@ const HospitalCard = ({ hospital }) => {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ width: "60vw", maxWidth: 300 }}>
+    <Card sx={{ width: "60vw", maxWidth: 300, mb: 2 }}>
       <CardMedia
         component="img"
         height="194"
@@ -28,7 +28,7 @@ const HospitalCard = ({ hospital }) => {
         onClick={() => navigate(`/hospital/${hospital.id}`)}
       />
       <CardContent>
-        <Box className="flex justify-between items-center">
+        <Box className="flex flex-col sm:flex-row justify-between items-center">
           <Typography fontWeight="semibold" color="text.primary">
             {hospital.name}
           </Typography>

@@ -13,6 +13,7 @@ const HospitalDetails = () => {
   const hospital = useSelector((state) =>
     selectHospitalById(state, Number(id))
   );
+
   const disableWeekends = (date) => {
     const day = dayjs(date).day();
     return day === 0 || day === 6;
@@ -26,7 +27,8 @@ const HospitalDetails = () => {
     return disabledHours.includes(hour);
   };
 
-  const GeographicCoordinate = "!1m18!1m12!1m3!1d15371.38079613829!2d-8.523328005249686!3d32.244553358684065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdaefdd4fcbbdbc1%3A0x846cbd9f328a7bdb!2sYoucode!5e0!3m2!1sen!2sma!4v1681518410236!5m2!1sen!2sma"
+  const GeographicCoordinate =
+    "!1m18!1m12!1m3!1d15371.38079613829!2d-8.523328005249686!3d32.244553358684065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdaefdd4fcbbdbc1%3A0x846cbd9f328a7bdb!2sYoucode!5e0!3m2!1sen!2sma!4v1681518410236!5m2!1sen!2sma";
 
   return (
     <div className="w-11/12 m-auto">
@@ -37,13 +39,13 @@ const HospitalDetails = () => {
       <div className="my-5">
         <div className="text-lg text-gray-600">
           <iframe
-            src={`https://www.google.com/maps/embed?pb=${GeographicCoordinate}`}
+            src={`https://www.google.com/maps/embed?pb=${hospital.geographicCoordinate}`}
             width="100%"
             height="450"
             style={{ border: 0 }}
-            allowfullscreen=""
+            allowFullScreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>
@@ -69,7 +71,7 @@ const HospitalDetails = () => {
           />
         </div>
         <div className="my-10">
-          <ResponsibleCard />
+          <ResponsibleCard responsible={hospital.responsible} />
         </div>
       </div>
     </div>

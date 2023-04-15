@@ -136,7 +136,7 @@ const Register = () => {
         password: password,
         password_confirmation: passwordConfirmation,
       };
-      
+
       try {
         const { data } = await register(raw).unwrap();
         dispatch(setCredentials(data));
@@ -338,7 +338,9 @@ const Register = () => {
                   label="Phone Number *"
                   variant="outlined"
                   InputProps={{
-                    startAdornment: <InputAdornment position="start">+212</InputAdornment>,
+                    startAdornment: (
+                      <InputAdornment position="start">+212</InputAdornment>
+                    ),
                   }}
                   fullWidth
                 />
