@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { HospitalCard, HospitalCardSkeleton } from "../../components/home";
+import { HospitalCard, HospitalCardSkeleton } from "../../components/home/hospital";
 import { NoData } from "../../assets";
 
 const HospitalsList = ({ hospitals, isLoading }) => {

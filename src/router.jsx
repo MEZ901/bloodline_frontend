@@ -18,40 +18,45 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element:
+            element: (
               <AuthMiddleware type="guest">
                 <LandingPage />
-              </AuthMiddleware>,
+              </AuthMiddleware>
+            ),
           },
           {
             path: "/home",
-            element:
+            element: (
               <AuthMiddleware type="auth">
                 <Home />
-              </AuthMiddleware>,
+              </AuthMiddleware>
+            ),
           },
           {
             path: "/hospital/:id",
-            element: 
+            element: (
               <AuthMiddleware type="auth">
                 <HospitalDetails />
-              </AuthMiddleware>,
+              </AuthMiddleware>
+            ),
           },
-        ]
+        ],
       },
       {
         path: "/login",
-        element:
+        element: (
           <AuthMiddleware type="guest">
             <Login />
-          </AuthMiddleware>,
+          </AuthMiddleware>
+        ),
       },
       {
         path: "/register",
-        element:
+        element: (
           <AuthMiddleware type="guest">
             <Register />
-          </AuthMiddleware>,
+          </AuthMiddleware>
+        ),
       },
       {
         path: "*",

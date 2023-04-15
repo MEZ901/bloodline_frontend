@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectHospitalById } from "./hospitalSelectors";
-import { DefaultHospital, ScheduleAppointment } from "../../assets";
+import { ScheduleAppointment } from "../../assets";
 import { Chip } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { StaticDateTimePicker } from "@mui/x-date-pickers";
@@ -31,7 +31,7 @@ const HospitalDetails = () => {
     "!1m18!1m12!1m3!1d15371.38079613829!2d-8.523328005249686!3d32.244553358684065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdaefdd4fcbbdbc1%3A0x846cbd9f328a7bdb!2sYoucode!5e0!3m2!1sen!2sma!4v1681518410236!5m2!1sen!2sma";
 
   return (
-    <div className="w-11/12 m-auto">
+    <div>
       <div className="flex flex-col sm:flex-row sm:justify-between my-3">
         <h3 className="text-3xl font-bold">{hospital.name}</h3>
         <Chip icon={<LocationOnIcon />} label={hospital.city} />

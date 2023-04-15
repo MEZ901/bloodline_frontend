@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { DefaultHospital } from "../../assets";
+import { DefaultHospital } from "../../../assets";
 import {
   Chip,
   Tooltip,

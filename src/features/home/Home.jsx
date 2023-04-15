@@ -28,7 +28,7 @@ const Home = () => {
   }
 
   return (
-    <div className="w-11/12 m-auto">
+    <div>
       <Hero />
       <div id="hospitals">
         <div className="w-full bg-gray-100 py-4 px-2 my-10 rounded gap-3 flex flex-col sm:flex-row justify-between items-center">
