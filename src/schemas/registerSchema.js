@@ -1,6 +1,8 @@
 import * as yup from "yup";
 
 const emailRule = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const phoneRule = /^\d{9}$/;
+
 const registerSchema = yup.object().shape({
     firstName: yup
         .string()
@@ -20,6 +22,10 @@ const registerSchema = yup.object().shape({
     city: yup
         .object()
         .required("City is required"),
+    phone: yup
+        .string()
+        .matches(phoneRule, "Please enter a valid phone number")
+        .required("Phone is required"),
     email: yup
         .string()
         .matches(emailRule, "Please enter a valid email")

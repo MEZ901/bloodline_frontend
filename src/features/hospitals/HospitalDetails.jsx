@@ -30,15 +30,6 @@ const HospitalDetails = () => {
 
   return (
     <div className="w-11/12 m-auto">
-      {/* <div
-        className="w-full h-[60vh] rounded my-3"
-        style={{
-          backgroundImage: `url('${hospital?.image || DefaultHospital}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      /> */}
       <div className="flex flex-col sm:flex-row sm:justify-between my-3">
         <h3 className="text-3xl font-bold">{hospital.name}</h3>
         <Chip icon={<LocationOnIcon />} label={hospital.city} />

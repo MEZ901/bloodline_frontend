@@ -104,6 +104,7 @@ const Register = () => {
       bloodType: null,
       cin: "",
       city: null,
+      phone: "",
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -117,6 +118,7 @@ const Register = () => {
       bloodType,
       cin,
       city,
+      phone,
       email,
       password,
       passwordConfirmation,
@@ -129,10 +131,12 @@ const Register = () => {
         blood_type_id: bloodType?.id || null,
         cin: cin,
         city_id: city.id,
+        phone: `0${phone}`,
         email: email,
         password: password,
         password_confirmation: passwordConfirmation,
       };
+      
       try {
         const { data } = await register(raw).unwrap();
         dispatch(setCredentials(data));
@@ -318,6 +322,25 @@ const Register = () => {
                       onBlur={handleBlur}
                     />
                   )}
+                />
+              </div>
+              <div>
+                <TextField
+                  error={errors.phone && touched.phone}
+                  helperText={
+                    errors.phone && touched.phone ? errors.phone : null
+                  }
+                  value={values.phone}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id="phone"
+                  name="phone"
+                  label="Phone Number *"
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">+212</InputAdornment>,
+                  }}
+                  fullWidth
                 />
               </div>
               <div>
