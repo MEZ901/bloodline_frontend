@@ -5,7 +5,7 @@ import { Login, Register } from "./features/auth";
 import { Home } from "./features/home";
 import { AuthMiddleware } from "./features/auth";
 import { HospitalDetails } from "./features/hospitals";
-import { AdminDashboard } from "./features/admin";
+import { AdminDashboard, Users, Hospitals, Settings } from "./features/admin";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +54,18 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: <AdminDashboard />,
+          },
+          {
+            path: "users",
+            element: <Users />,
+          },
+          {
+            path: "hospitals",
+            element: <Hospitals />,
+          },
+          {
+            path: "settings",
+            element: <Settings />
           },
         ],
       },

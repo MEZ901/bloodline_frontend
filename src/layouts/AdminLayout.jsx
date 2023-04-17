@@ -4,15 +4,15 @@ import { Sidebar, Topbar } from "../components/admin-dashboard";
 const AdminLayout = () => {
   return (
     <div className="flex">
-        <div className="">
-            <Sidebar />
+      <Sidebar />
+      <div className="w-full">
+        <Topbar />
+        <div className="p-4">
+          <Outlet />
         </div>
-        <div className="w-full">
-            <Topbar />
-            <Outlet />
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;

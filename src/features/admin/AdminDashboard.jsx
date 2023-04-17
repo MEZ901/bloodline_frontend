@@ -1,7 +1,7 @@
 const AdminDashboard = () => {
   return (
-    <div className="">
-        dashboard
+    <div>
+      dashboard
     </div>
   )
 }
