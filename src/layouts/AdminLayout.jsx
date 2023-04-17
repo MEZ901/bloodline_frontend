@@ -1,9 +1,16 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
+import { Sidebar, Topbar } from "../components/admin-dashboard";
 
 const AdminLayout = () => {
   return (
-    <div>
-        <Outlet />
+    <div className="flex">
+        <div className="">
+            <Sidebar />
+        </div>
+        <div className="w-full">
+            <Topbar />
+            <Outlet />
+        </div>
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { SnackbarProvider } from "notistack";
 import { PersistGate } from "redux-persist/integration/react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <PersistGate loading={null} persistor={persistor}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SnackbarProvider>
-            <RouterProvider router={router} />
+            <ProSidebarProvider>
+              <RouterProvider router={router} />
+            </ProSidebarProvider>
           </SnackbarProvider>
         </LocalizationProvider>
       </PersistGate>
