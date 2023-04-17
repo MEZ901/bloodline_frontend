@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Logout, Settings } from "@mui/icons-material";
+import { DashboardOutlined, Logout, Settings } from "@mui/icons-material";
 import { Logo } from "../../assets";
 import { selectCurrentUser, authLogOut } from "../../features/auth";
 import { useLogOutMutation } from "../../app/api";
@@ -24,7 +24,7 @@ const Navbar = () => {
   const user = useSelector(selectCurrentUser);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [logOut, { isLoading }] = useLogOutMutation();
+  const [logOut] = useLogOutMutation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -135,6 +135,12 @@ const Navbar = () => {
                 Profile
               </MenuItem>
               <Divider />
+              <MenuItem onClick={() => navigate("/admin/dashboard")}>
+                <ListItemIcon>
+                  <DashboardOutlined fontSize="small" />
+                </ListItemIcon>
+                Dashboard
+              </MenuItem>
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <Settings fontSize="small" />
