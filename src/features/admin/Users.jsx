@@ -57,7 +57,6 @@ const Users = () => {
           slots={{
             toolbar: GridToolbar,
           }}
-          sx={{ width: "100%" }}
         />
       </div>
     </div>

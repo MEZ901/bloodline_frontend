@@ -7,6 +7,7 @@ import { authReducer } from "../features/auth";
 import { citiesReducer } from "../features/cities";
 import { bloodTypesReducer } from "../features/bloodTypes";
 import { hospitalsReducer } from "../features/hospitals";
+import { usersReducer } from "../features/users";
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
@@ -14,12 +15,13 @@ const rootReducer = combineReducers({
   cities: citiesReducer,
   bloodTypes: bloodTypesReducer,
   hospitals: hospitalsReducer,
+  users: usersReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cities', 'bloodTypes', 'hospitals']
+  whitelist: ['auth', 'cities', 'bloodTypes', 'hospitals', 'users']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
