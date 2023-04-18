@@ -158,7 +158,7 @@ const Register = () => {
       }
     },
   });
-
+  
   if (isLoadingCities || isLoadingBloodTypes) {
     return <LoadingSpinner />;
   }

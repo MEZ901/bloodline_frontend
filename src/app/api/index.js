@@ -6,6 +6,7 @@ import {
     useGetBloodTypesQuery,
     useGetCitiesQuery,
     useGetHospitalsQuery,
+    useGetUsersQuery,
 } from "./apiSlice";
 
 export {
@@ -16,4 +17,5 @@ export {
     useGetBloodTypesQuery,
     useGetCitiesQuery,
     useGetHospitalsQuery,
+    useGetUsersQuery,
 };

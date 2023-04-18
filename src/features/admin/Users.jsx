@@ -1,49 +1,42 @@
 import { Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from '@mui/icons-material/Delete';
-
-const rows = [
-  {
-    id: 1,
-    firstName: "issam",
-    lastName: "mez",
-    age: 25,
-    cin: "123456789",
-    city: "Tunis",
-    bloodType: "A+",
-    email: "issammez44@gmail.com",
-    phone: "123456789",
-  },
-];
-
-const columns = [
-  { field: "id", headerName: "Id", width: 50 },
-  { field: "firstName", headerName: "First Name", width: 150 },
-  { field: "lastName", headerName: "Last Name", width: 150 },
-  { field: "age", headerName: "Age", width: 70 },
-  { field: "cin", headerName: "CIN", width: 100 },
-  { field: "city", headerName: "City", width: 100 },
-  { field: "bloodType", headerName: "Blood Type", width: 70 },
-  { field: "email", headerName: "Email", width: 200 },
-  { field: "phone", headerName: "Phone", width: 100 },
-  {
-    field: "action",
-    headerName: "Action",
-    renderCell: (params) => (
-      <div className="flex flex-row justify-evenly w-full">   
-        <IconButton aria-label="edit" onClick={() => console.log(params)} >
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete" onClick={() => console.log(params)} >
-          <DeleteIcon />
-        </IconButton>
-      </div>
-    ),
-  },
-];
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useGetUsersQuery } from "../../app/api";
+import { LoadingSpinner } from "../../components/common";
 
 const Users = () => {
+  const { data, isLoading } = useGetUsersQuery();
+  
+  if (isLoading) return <LoadingSpinner />;
+
+  const rows = [...data.data];
+
+  const columns = [
+    { field: "id", headerName: "Id", width: 50 },
+    { field: "firstName", headerName: "First Name", width: 150 },
+    { field: "lastName", headerName: "Last Name", width: 150 },
+    { field: "age", headerName: "Age", width: 70 },
+    { field: "cin", headerName: "CIN", width: 100 },
+    { field: "city", headerName: "City", width: 100 },
+    { field: "bloodType", headerName: "Blood Type", width: 70 },
+    { field: "email", headerName: "Email", width: 200 },
+    { field: "phone", headerName: "Phone", width: 100 },
+    {
+      field: "action",
+      headerName: "Action",
+      renderCell: (params) => (
+        <div className="flex flex-row justify-evenly w-full">
+          <IconButton aria-label="edit" onClick={() => console.log(params)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton aria-label="delete" onClick={() => console.log(params)}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      ),
+    },
+  ];
   return (
     <div>
       <div className="flex justify-between items-center mb-5">

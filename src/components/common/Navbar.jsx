@@ -78,7 +78,7 @@ const Navbar = () => {
                       textTransform: "uppercase",
                       bgcolor: "#FF1C23",
                     }}
-                    src={user.profile || undefined}
+                    src={user.profileImage || undefined}
                   >
                     {user.firstName.charAt(0)}
                   </Avatar>
@@ -128,7 +128,7 @@ const Navbar = () => {
                     textTransform: "uppercase",
                     bgcolor: "#FF1C23",
                   }}
-                  src={user.profile || undefined}
+                  src={user.profileImage || undefined}
                 >
                   {user.firstName.charAt(0)}
                 </Avatar>{" "}
