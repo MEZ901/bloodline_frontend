@@ -1,6 +1,7 @@
 import modalReducer, { openModal, closeModal } from "./modalSlice";
 import { selectModal } from "./modalSelectors";
 import AddUserModal from "./AddUserModal";
+import DeleteUserModal from "./DeleteUserModal";
 
 export {
     modalReducer,
@@ -8,4 +9,5 @@ export {
     closeModal,
     selectModal,
     AddUserModal,
+    DeleteUserModal,
 };

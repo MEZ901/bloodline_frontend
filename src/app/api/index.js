@@ -7,6 +7,7 @@ import {
     useGetCitiesQuery,
     useGetHospitalsQuery,
     useGetUsersQuery,
+    useDeleteUserMutation,
 } from "./apiSlice";
 
 export {
@@ -18,4 +19,5 @@ export {
     useGetCitiesQuery,
     useGetHospitalsQuery,
     useGetUsersQuery,
+    useDeleteUserMutation,
 };

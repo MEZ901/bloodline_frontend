@@ -1,21 +1,29 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useGetUsersQuery } from "../../app/api";
 import { LoadingSpinner } from "../../components/common";
-import { openModal } from "../modal";
-import { AddUserModal } from "../modal";
+import {
+  openModal,
+  selectModal,
+  AddUserModal,
+  DeleteUserModal,
+} from "../modal";
 import { useRefetchUsers } from "../../customHooks";
+import { useState } from "react";
 
 const Users = () => {
   const dispatch = useDispatch();
-
+  const [userSelected, setUserSelected] = useState({});
+  const { isOpen, type } = useSelector(selectModal);
   const { data, isLoading, refetchUsers } = useRefetchUsers();
 
-  const handleOpenModal = () => {
-    dispatch(openModal({ type: "addUser" }));
+  const handleOpenModal = (type, params = {}) => {
+    params
+      ? setUserSelected({ ...params.row })
+      : setUserSelected({});
+    dispatch(openModal({ type: type }));
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -39,7 +47,10 @@ const Users = () => {
           <IconButton aria-label="edit" onClick={() => console.log(params)}>
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => console.log(params)}>
+          <IconButton
+            aria-label="delete"
+            onClick={() => handleOpenModal("deleteUser", params)}
+          >
             <DeleteIcon />
           </IconButton>
         </div>
@@ -49,10 +60,9 @@ const Users = () => {
 
   return (
     <div>
-      <AddUserModal refetchUsers={refetchUsers} />
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Users</h1>
-        <Button variant="contained" onClick={handleOpenModal}>
+        <Button variant="contained" onClick={() => handleOpenModal("addUser")}>
           Add User
         </Button>
       </div>
@@ -65,6 +75,10 @@ const Users = () => {
           }}
         />
       </div>
+      {isOpen && type === "addUser" && (
+        <AddUserModal refetchUsers={refetchUsers} />
+      )}
+      {isOpen && type === "deleteUser" && <DeleteUserModal refetchUsers={refetchUsers} user={userSelected} />}
     </div>
   );
 };

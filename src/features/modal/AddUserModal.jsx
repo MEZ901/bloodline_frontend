@@ -180,6 +180,10 @@ const AddUserModal = ({ refetchUsers }) => {
   return (
     <Modal
       title="Add user"
+      style={{
+        top: 20,
+        bottom: 20,
+      }}
       open={isOpen}
       onCancel={handleCancel}
       footer={[
