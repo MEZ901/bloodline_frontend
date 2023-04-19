@@ -1,19 +1,16 @@
-import { Button as AntdButton, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { selectModal } from "./modalSelectors";
-import { closeModal } from "./modalSlice";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal } from "antd";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import EditIcon from "@mui/icons-material/Edit";
+import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
+import { selectModal } from "./modalSelectors";
+import { closeModal } from "./modalSlice";
 import { addUserSchema } from "../../schemas";
 import { LoadingSpinner } from "../../components/common";
-import { setCredentials } from "../../features/auth/authSlice";
-import * as yup from "yup";
 import { Profile } from "../../assets";
 import {
   useGetBloodTypesQuery,
@@ -32,7 +29,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 
-const AddUserModal = () => {
+const AddUserModal = ({ refetchUsers }) => {
   const { isOpen } = useSelector(selectModal);
   const dispatch = useDispatch();
 
@@ -141,10 +138,11 @@ const AddUserModal = () => {
         password: password,
         password_confirmation: passwordConfirmation,
       };
-      
+
       try {
-        const { data } = await register(raw).unwrap();
+        await register(raw).unwrap();
         dispatch(closeModal());
+        refetchUsers();
         enqueueSnackbar("User has been added successfully!", {
           variant: "success",
         });

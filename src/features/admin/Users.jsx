@@ -7,12 +7,12 @@ import { useGetUsersQuery } from "../../app/api";
 import { LoadingSpinner } from "../../components/common";
 import { openModal } from "../modal";
 import { AddUserModal } from "../modal";
-import { useState } from "react";
+import { useRefetchUsers } from "../../customHooks";
 
 const Users = () => {
   const dispatch = useDispatch();
 
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, refetchUsers } = useRefetchUsers();
 
   const handleOpenModal = () => {
     dispatch(openModal({ type: "addUser" }));
@@ -49,7 +49,7 @@ const Users = () => {
 
   return (
     <div>
-      <AddUserModal />
+      <AddUserModal refetchUsers={refetchUsers} />
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Users</h1>
         <Button variant="contained" onClick={handleOpenModal}>
