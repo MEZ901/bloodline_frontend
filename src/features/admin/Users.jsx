@@ -1,17 +1,26 @@
+import { useDispatch } from "react-redux";
 import { Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useGetUsersQuery } from "../../app/api";
 import { LoadingSpinner } from "../../components/common";
+import { openModal } from "../modal";
+import { AddUserModal } from "../modal";
+import { useState } from "react";
 
 const Users = () => {
+  const dispatch = useDispatch();
+
   const { data, isLoading } = useGetUsersQuery();
-  
+
+  const handleOpenModal = () => {
+    dispatch(openModal({ type: "addUser" }));
+  };
+
   if (isLoading) return <LoadingSpinner />;
 
-  const rows = [...data.data];
-
+  const rows = [...data?.data];
   const columns = [
     { field: "id", headerName: "Id", width: 50 },
     { field: "firstName", headerName: "First Name", width: 150 },
@@ -37,11 +46,15 @@ const Users = () => {
       ),
     },
   ];
+
   return (
     <div>
+      <AddUserModal />
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Users</h1>
-        <Button variant="contained">Add User</Button>
+        <Button variant="contained" onClick={handleOpenModal}>
+          Add User
+        </Button>
       </div>
       <div className="h-96">
         <DataGrid

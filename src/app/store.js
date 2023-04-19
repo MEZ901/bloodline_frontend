@@ -8,6 +8,7 @@ import { citiesReducer } from "../features/cities";
 import { bloodTypesReducer } from "../features/bloodTypes";
 import { hospitalsReducer } from "../features/hospitals";
 import { usersReducer } from "../features/users";
+import { modalReducer } from "../features/modal";
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   bloodTypes: bloodTypesReducer,
   hospitals: hospitalsReducer,
   users: usersReducer,
+  modal: modalReducer,
 });
 
 const persistConfig = {
