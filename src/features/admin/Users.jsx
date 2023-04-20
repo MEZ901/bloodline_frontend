@@ -20,13 +20,11 @@ const Users = () => {
   const { data, isLoading, refetchUsers } = useRefetchUsers();
 
   const handleOpenModal = (type, params = {}) => {
-    params
-      ? setUserSelected({ ...params.row })
-      : setUserSelected({});
+    params ? setUserSelected({ ...params.row }) : setUserSelected({});
     dispatch(openModal({ type: type }));
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner open={true} />;
 
   const rows = [...data?.data];
   const columns = [
@@ -78,7 +76,9 @@ const Users = () => {
       {isOpen && type === "addUser" && (
         <AddUserModal refetchUsers={refetchUsers} />
       )}
-      {isOpen && type === "deleteUser" && <DeleteUserModal refetchUsers={refetchUsers} user={userSelected} />}
+      {isOpen && type === "deleteUser" && (
+        <DeleteUserModal refetchUsers={refetchUsers} user={userSelected} />
+      )}
     </div>
   );
 };

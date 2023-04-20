@@ -4,12 +4,13 @@ import { closeModal } from "./modalSlice";
 import { selectModal } from "./modalSelectors";
 import { useDeleteUserMutation } from "../../app/api";
 import { enqueueSnackbar } from "notistack";
+import { LoadingSpinner } from "../../components/common";
 
 const DeleteUserModal = ({ refetchUsers, user }) => {
   const { id, firstName, lastName } = user;
   const dispatch = useDispatch();
   const { isOpen } = useSelector(selectModal);
-  const [deleteUser] = useDeleteUserMutation();
+  const [deleteUser, { isLoading }] = useDeleteUserMutation();
 
   const handleCancel = () => {
     dispatch(closeModal());
@@ -30,19 +31,22 @@ const DeleteUserModal = ({ refetchUsers, user }) => {
     }
   };
   return (
-    <Modal
-      title="Delete User"
-      open={isOpen}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      okText="Delete"
-      okButtonProps={{ danger: true }}
-      cancelText="Cancel"
-    >
-      <p>
-        You are about to delete {firstName} {lastName}
-      </p>
-    </Modal>
+    <>
+      <LoadingSpinner open={isLoading} />
+      <Modal
+        title="Delete User"
+        open={isOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Delete"
+        okButtonProps={{ danger: true }}
+        cancelText="Cancel"
+      >
+        <p>
+          You are about to delete {firstName} {lastName}
+        </p>
+      </Modal>
+    </>
   );
 };
 

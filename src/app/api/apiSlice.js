@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, authLogOut } from "../../features/auth";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000/api",
+  baseUrl: "http://bloodlink_backend.test/api/",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
     if (token) {

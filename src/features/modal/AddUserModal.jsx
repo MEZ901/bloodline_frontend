@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "antd";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { CircularProgress } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
@@ -30,7 +28,17 @@ import {
 } from "@mui/material";
 
 const AddUserModal = ({ refetchUsers }) => {
-  const { isOpen } = useSelector(selectModal);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] =
+    useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPasswordConfirmation = () =>
+    setShowPasswordConfirmation((show) => !show);
+  const { enqueueSnackbar } = useSnackbar();
+  const profileImg = useRef(null);
+  const [src, setSrc] = useState(null);
+  const addForm = useRef(null);
+  const { isOpen, type } = useSelector(selectModal);
   const dispatch = useDispatch();
 
   const {
@@ -44,18 +52,7 @@ const AddUserModal = ({ refetchUsers }) => {
     isLoading: isLoadingBloodTypes,
     isError: isErrorBloodTypes,
   } = useGetBloodTypesQuery();
-
   const [register, { isLoading, error }] = useRegisterMutation();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] =
-    useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowPasswordConfirmation = () =>
-    setShowPasswordConfirmation((show) => !show);
-  const { enqueueSnackbar } = useSnackbar();
-  const profileImg = useRef(null);
-  const [src, setSrc] = useState(null);
-  const addForm = useRef(null);
 
   const handleProfileClick = () => {
     profileImg.current.click();
@@ -109,8 +106,7 @@ const AddUserModal = ({ refetchUsers }) => {
       phone: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
-      terms: false,
+      passwordConfirmation: ""
     },
     validationSchema: addUserSchema,
     onSubmit: async ({
@@ -165,7 +161,9 @@ const AddUserModal = ({ refetchUsers }) => {
   });
 
   if (isLoadingCities || isLoadingBloodTypes) {
-    return <LoadingSpinner />;
+    return (
+      <LoadingSpinner open={true} />
+    );
   }
 
   const handleCancel = () => {
@@ -200,12 +198,7 @@ const AddUserModal = ({ refetchUsers }) => {
         </Button>,
       ]}
     >
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-      >
-        <CircularProgress sx={{ color: "#FF1C23" }} />
-      </Backdrop>
+      <LoadingSpinner open={isLoading} />
       <form
         className="space-y-4 md:space-y-6 py-2"
         onSubmit={handleSubmit}

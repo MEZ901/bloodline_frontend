@@ -1,11 +1,14 @@
-import { BounceLoader } from "react-spinners";
+import { Backdrop, CircularProgress } from "@mui/material";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ open }) => {
   return (
-    <div className="absolute top-0 left-0 bottom-0 right-0 flex justify-center items-center">
-      <BounceLoader color="#FF1C23" />
-    </div>
-  )
-}
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}
+    >
+      <CircularProgress sx={{ color: "#FF1C23" }} />
+    </Backdrop>
+  );
+};
 
-export default LoadingSpinner
+export default LoadingSpinner;

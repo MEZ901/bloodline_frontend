@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { CircularProgress } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSnackbar } from "notistack";
 import { Logo } from "../../assets";
@@ -158,23 +156,15 @@ const Register = () => {
       }
     },
   });
-  
-  if (isLoadingCities || isLoadingBloodTypes) {
-    return <LoadingSpinner />;
-  }
 
-  if (isErrorCities || isErrorBloodTypes) {
+  if (isLoadingCities || isLoadingBloodTypes) return <LoadingSpinner open={true} />;
+
+  if (isErrorCities || isErrorBloodTypes)
     return <div>Something went wrong ...</div>;
-  }
 
   return (
     <section className="bg-gray-50 min-h-screen">
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-      >
-        <CircularProgress sx={{ color: "#FF1C23" }} />
-      </Backdrop>
+      <LoadingSpinner open={isLoading} />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <Link
           to="/"
