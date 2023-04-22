@@ -75,6 +75,13 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
     }),
+    makeAppointment: builder.mutation({
+      query: (appointment) => ({
+        url: "appointments",
+        method: "POST",
+        body: appointment,
+      }),
+    }),
   }),
 });
 
@@ -87,4 +94,5 @@ export const {
   useGetHospitalsQuery,
   useGetUsersQuery,
   useDeleteUserMutation,
+  useMakeAppointmentMutation,
 } = apiSlice;

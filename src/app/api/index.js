@@ -8,6 +8,7 @@ import {
     useGetHospitalsQuery,
     useGetUsersQuery,
     useDeleteUserMutation,
+    useMakeAppointmentMutation,
 } from "./apiSlice";
 
 export {
@@ -20,4 +21,5 @@ export {
     useGetHospitalsQuery,
     useGetUsersQuery,
     useDeleteUserMutation,
+    useMakeAppointmentMutation,
 };

@@ -7,12 +7,21 @@ import { StaticDateTimePicker } from "@mui/x-date-pickers";
 import { selectHospitalById } from "./hospitalSelectors";
 import { ScheduleAppointment } from "../../assets";
 import { ResponsibleCard } from "../../components/hospital-details";
+import { selectCurrentUser } from "../auth";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
+import { useMakeAppointmentMutation } from "../../app/api";
+import { LoadingSpinner } from "../../components/common";
 
 const HospitalDetails = () => {
   const { id } = useParams();
+  const user = useSelector(selectCurrentUser);
   const { name, city, geographicCoordinate, responsible } = useSelector(
     (state) => selectHospitalById(state, Number(id))
   );
+  const { enqueueSnackbar } = useSnackbar();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [makeAppointment, { isLoading }] = useMakeAppointmentMutation();
 
   const disableWeekends = (date) => {
     const day = dayjs(date).day();
@@ -28,12 +37,42 @@ const HospitalDetails = () => {
   };
 
   const handleChange = (newValue) => {
-    const dateAndTimeISO = dayjs(newValue).toISOString();
-    console.log(dateAndTimeISO);
+    const dateAndTime = dayjs(newValue).format("YYYY-MM-DD HH:mm");
+    setSelectedDate(dateAndTime);
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedDate) {
+      enqueueSnackbar("Please select tha date and time", {
+        variant: "error",
+      });
+      return;
+    }
+    const row = {
+      date: selectedDate,
+      status: "pending",
+      hospital_id: Number(id),
+      user_id: user.id,
+    };
+    try {
+      await makeAppointment(row).unwrap();
+      enqueueSnackbar("Appointment successfully scheduled", {
+        variant: "success",
+      });
+    } catch (error) {
+      error.status === 400
+        ? enqueueSnackbar("Sorry, the maximum number of reservations has already been reached for that date. Please select a different date or contact us for further assistance", {
+            variant: "error",
+          })
+        : enqueueSnackbar("An error occurred", {
+            variant: "error",
+          });
+    }
   };
 
   return (
     <div>
+      <LoadingSpinner open={isLoading} />
       <div className="flex flex-col sm:flex-row sm:justify-between my-3">
         <h3 className="text-3xl font-bold">{name}</h3>
         <Chip icon={<LocationOnIcon />} label={city} />
@@ -62,9 +101,8 @@ const HospitalDetails = () => {
             minutesStep={30}
             shouldDisableDate={disableWeekends}
             shouldDisableTime={shouldDisableTime}
-            defaultValue={dayjs(new Date())}
             onChange={handleChange}
-            onAccept={() => console.log("hh")}
+            onAccept={handleSubmit}
           />
           <img
             src={ScheduleAppointment}

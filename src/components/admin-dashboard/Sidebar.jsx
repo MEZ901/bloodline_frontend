@@ -25,7 +25,7 @@ const Sidebar = () => {
       <ProSidebar defaultCollapsed={sm ? true : false}>
         <Menu>
           <div className={`flex justify-between items-center p-5`}>
-            <span className={`${collapsed && "hidden"}`}>BloodLink</span>
+            <Link to="/" className={`${collapsed && "hidden"}`}>BloodLink</Link>
             <MenuIcon
               className={`cursor-pointer ${collapsed && "flex-1"}`}
               onClick={() => collapseSidebar()}
