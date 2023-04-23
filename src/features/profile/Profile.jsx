@@ -1,16 +1,19 @@
-import { ProfileCard } from "../../components/profile"
+import { Appointments, ProfileCard } from "../../components/profile";
 
 const Profile = () => {
   return (
-    <div className="min-h-screen flex flex-col sm:flex-row justify-around">
-       <div className="bg-glass h-fit mt-5">
-        <ProfileCard />
-       </div>
-       <div className="bg-glass h-fit">
-        right
-       </div>
+    <div className="min-h-screen flex flex-col sm:flex-row justify-around my-5 gap-5">
+      <div className="flex flex-col gap-5 flex-[1]">
+        <div className="bg-gray-50 shadow-md rounded">
+          <ProfileCard />
+        </div>
+        <div className="bg-gray-50 shadow-md rounded">
+            <Appointments />
+        </div>
+      </div>
+      <div className="bg-gray-50 shadow-md rounded flex-[2]">right</div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
