@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { useRouteError } from "react-router-dom";
 
 const ErrorBoundary = () => {

@@ -6,6 +6,7 @@ import { Home } from "./features/home";
 import { AuthMiddleware } from "./features/auth";
 import { HospitalDetails } from "./features/hospitals";
 import { AdminDashboard, Users, Hospitals, Settings } from "./features/admin";
+import { Profile } from "./features/profile";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
               </AuthMiddleware>
             ),
           },
+          {
+            path: "/profile",
+            element: (
+              <AuthMiddleware type="auth">
+                <Profile />
+              </AuthMiddleware>
+            ),
+          },
         ],
       },
       {
@@ -65,7 +74,7 @@ const router = createBrowserRouter([
           },
           {
             path: "settings",
-            element: <Settings />
+            element: <Settings />,
           },
         ],
       },
