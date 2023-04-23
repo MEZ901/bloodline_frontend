@@ -1,4 +1,8 @@
-import { Appointments, ProfileCard } from "../../components/profile";
+import {
+  Appointments,
+  ProfileCard,
+  UpdateProfile,
+} from "../../components/profile";
 
 const Profile = () => {
   return (
@@ -8,10 +12,12 @@ const Profile = () => {
           <ProfileCard />
         </div>
         <div className="bg-gray-50 shadow-md rounded">
-            <Appointments />
+          <Appointments />
         </div>
       </div>
-      <div className="bg-gray-50 shadow-md rounded flex-[2]">right</div>
+      <div className="bg-gray-50 shadow-md rounded flex-[2] h-fit">
+        <UpdateProfile />
+      </div>
     </div>
   );
 };

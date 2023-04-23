@@ -49,7 +49,7 @@ const Appointments = () => {
         <h3 className="text-2xl font-bold text-center">History</h3>
         <div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 200 }} aria-label="simple table">
+            <Table sx={{ minWidth: 150 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
