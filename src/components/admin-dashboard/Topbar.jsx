@@ -69,7 +69,7 @@ const Topbar = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => navigate("/profile")}>
           <ListItemIcon>
             <PersonOutlinedIcon fontSize="small" />
           </ListItemIcon>

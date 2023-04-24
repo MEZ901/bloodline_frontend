@@ -8,6 +8,7 @@ import { LoadingSpinner } from "../../components/common";
 import { useGetBloodTypesQuery, useGetCitiesQuery } from "../../app/api";
 import { TextField, InputAdornment, Button, Autocomplete } from "@mui/material";
 import { selectCurrentUser } from "../../features/auth";
+import { useEffect } from "react";
 
 const UpdateProfile = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -23,7 +24,7 @@ const UpdateProfile = () => {
     isLoading: isLoadingBloodTypes,
     isError: isErrorBloodTypes,
   } = useGetBloodTypesQuery();
-
+  
   const {
     values,
     errors,
@@ -37,10 +38,9 @@ const UpdateProfile = () => {
       firstName: firstName,
       lastName: lastName,
       age: age,
-      bloodType:
-        bloodTypes?.data?.find((option) => option.name === bloodType) || null,
+      bloodType: null,
       cin: cin,
-      city: cities?.data?.find((option) => option.name === city),
+      city: null,
       phone: phone.substring(1),
       email: email,
     },
@@ -86,11 +86,23 @@ const UpdateProfile = () => {
     },
   });
 
+  useEffect(() => {
+    setFieldValue(
+      "bloodType",
+      bloodTypes?.data?.find((option) => option.name === bloodType) || null
+    );
+    setFieldValue(
+      "city",
+      cities?.data?.find((option) => option.name === city) || null
+    );
+  }, [bloodTypes, cities]);
+
   if (isLoadingCities || isLoadingBloodTypes)
     return <LoadingSpinner open={true} />;
 
   if (isErrorCities || isErrorBloodTypes)
     return <div>Something went wrong ...</div>;
+    
   return (
     <div className="p-5 flex flex-col gap-5">
       <h3 className="text-2xl font-bold text-center">Update profile</h3>

@@ -120,7 +120,7 @@ const Navbar = () => {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={() => navigate("/profile")}>
                 <Avatar
                   sx={{
                     width: 32,
