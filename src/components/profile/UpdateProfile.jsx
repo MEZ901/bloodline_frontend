@@ -24,7 +24,7 @@ const UpdateProfile = () => {
     isLoading: isLoadingBloodTypes,
     isError: isErrorBloodTypes,
   } = useGetBloodTypesQuery();
-  
+
   const {
     values,
     errors,
@@ -55,6 +55,8 @@ const UpdateProfile = () => {
       phone,
       email,
     }) => {
+      console.log("object");
+
       const raw = {
         first_name: firstName,
         last_name: lastName,
@@ -65,8 +67,8 @@ const UpdateProfile = () => {
         phone: `0${phone}`,
         email: email,
       };
-
       try {
+        console.log("hhh");
         console.log(raw);
       } catch (error) {
         if (error?.data?.errors) {
@@ -106,7 +108,7 @@ const UpdateProfile = () => {
   return (
     <div className="p-5 flex flex-col gap-5">
       <h3 className="text-2xl font-bold text-center">Update profile</h3>
-      <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-4 md:space-y-6" onSubmit={(handleSubmit)}>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
           <TextField
             error={errors.firstName && touched.firstName}
@@ -250,7 +252,7 @@ const UpdateProfile = () => {
         <Button
           type="submit"
           variant="contained"
-          style={{ backgroundColor: "#FF1C23" }}
+          style={{ backgroundColor: "#FF1C23", float: "right" }}
         >
           Update
         </Button>

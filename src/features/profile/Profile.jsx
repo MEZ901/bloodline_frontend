@@ -1,6 +1,7 @@
 import {
   Appointments,
   ProfileCard,
+  UpdatePassword,
   UpdateProfile,
 } from "../../components/profile";
 
@@ -15,8 +16,13 @@ const Profile = () => {
           <Appointments />
         </div>
       </div>
-      <div className="bg-gray-50 shadow-md rounded flex-[2] h-fit">
-        <UpdateProfile />
+      <div className="flex-[2] h-fit flex flex-col gap-5">
+        <div className="bg-gray-50 shadow-md rounded">
+          <UpdateProfile />
+        </div>
+        <div className="bg-gray-50 shadow-md rounded">
+          <UpdatePassword />
+        </div>
       </div>
     </div>
   );
