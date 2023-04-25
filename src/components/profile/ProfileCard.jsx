@@ -3,11 +3,8 @@ import { Profile } from "../../assets";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useRef, useState } from "react";
 import { useSnackbar } from "notistack";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/auth";
 
-const ProfileCard = () => {
-  const { profileImage, firstName, lastName } = useSelector(selectCurrentUser);
+const ProfileCard = ({ firstName, lastName, profileImage }) => {
   const [picture, setPicture] = useState(profileImage || null);
   const profileImg = useRef(null);
   const { enqueueSnackbar } = useSnackbar();

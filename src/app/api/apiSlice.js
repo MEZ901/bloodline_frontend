@@ -82,6 +82,9 @@ export const apiSlice = createApi({
         body: appointment,
       }),
     }),
+    getAppointments: builder.query({
+      query: (id) => `appointments?user_id=${id}`,
+    }),
   }),
 });
 
@@ -95,4 +98,5 @@ export const {
   useGetUsersQuery,
   useDeleteUserMutation,
   useMakeAppointmentMutation,
+  useGetAppointmentsQuery,
 } = apiSlice;

@@ -1,29 +1,11 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import { registerSchema } from "../../schemas";
-import { LoadingSpinner } from "../../components/common";
-import { useGetBloodTypesQuery, useGetCitiesQuery } from "../../app/api";
 import { TextField, InputAdornment, Button, Autocomplete } from "@mui/material";
-import { selectCurrentUser } from "../../features/auth";
 import { useEffect } from "react";
 
-const UpdateProfile = () => {
+const UpdateProfile = ({ firstName, lastName, age, bloodType, city, cin, phone, email, cities, bloodTypes }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { firstName, lastName, age, bloodType, city, cin, phone, email } =
-    useSelector(selectCurrentUser);
-  const {
-    data: cities,
-    isLoading: isLoadingCities,
-    isError: isErrorCities,
-  } = useGetCitiesQuery();
-  const {
-    data: bloodTypes,
-    isLoading: isLoadingBloodTypes,
-    isError: isErrorBloodTypes,
-  } = useGetBloodTypesQuery();
 
   const {
     values,
@@ -98,12 +80,6 @@ const UpdateProfile = () => {
       cities?.data?.find((option) => option.name === city) || null
     );
   }, [bloodTypes, cities]);
-
-  if (isLoadingCities || isLoadingBloodTypes)
-    return <LoadingSpinner open={true} />;
-
-  if (isErrorCities || isErrorBloodTypes)
-    return <div>Something went wrong ...</div>;
     
   return (
     <div className="p-5 flex flex-col gap-5">
