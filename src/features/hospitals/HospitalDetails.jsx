@@ -60,13 +60,9 @@ const HospitalDetails = () => {
         variant: "success",
       });
     } catch (error) {
-      error.status === 400
-        ? enqueueSnackbar("Sorry, the maximum number of reservations has already been reached for that date. Please select a different date or contact us for further assistance", {
-            variant: "error",
-          })
-        : enqueueSnackbar("An error occurred", {
-            variant: "error",
-          });
+      enqueueSnackbar(error?.data.message, {
+        variant: "error",
+      });
     }
   };
 

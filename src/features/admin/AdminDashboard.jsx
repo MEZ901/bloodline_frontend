@@ -1,7 +1,9 @@
+import { Stats } from "../../components/admin-dashboard";
+
 const AdminDashboard = () => {
   return (
     <div>
-      dashboard
+      <Stats />
     </div>
   )
 }

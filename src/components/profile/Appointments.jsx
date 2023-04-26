@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { Empty } from "../../assets";
 
 const Appointments = ({ firstName, lastName, appointments }) => {
   function createData(hospital, date, time, status) {
@@ -15,23 +16,24 @@ const Appointments = ({ firstName, lastName, appointments }) => {
   }
 
   const rows = [];
-  appointments.data.forEach((appointment) => {
-    appointment.status != "pending" &&
-      rows.push(
-        createData(
-          appointment.hospital.name,
-          appointment.date.split(" ").shift(),
-          appointment.date.split(" ").pop().slice(0, -3),
-          appointment.status == "done" ? (
-            <Chip label="Done" color="success" />
-          ) : (
-            <Chip label="Canceled" color="error" />
+  if (appointments?.data) {
+    appointments.data.forEach((appointment) => {
+      appointment.status != "pending" &&
+        rows.push(
+          createData(
+            appointment.hospital.name,
+            appointment.date.split(" ").shift(),
+            appointment.date.split(" ").pop().slice(0, -3),
+            appointment.status == "done" ? (
+              <Chip label="Done" color="success" />
+            ) : (
+              <Chip label="Canceled" color="error" />
+            )
           )
-        )
-      );
-  });
-
-  const upcomingAppointments = appointments.data.filter(
+        );
+    });
+  }
+  const upcomingAppointments = appointments?.data.filter(
     (appointment) => appointment.status == "pending"
   );
 
@@ -41,8 +43,10 @@ const Appointments = ({ firstName, lastName, appointments }) => {
         <h3 className="text-2xl font-bold text-center">
           Upcoming Appointments
         </h3>
-        {upcomingAppointments.length == 0 ? (
-          <p className="text-center">You don't have any upcoming appointments</p>
+        {!upcomingAppointments ? (
+          <p className="text-center">
+            You don't have any upcoming appointments
+          </p>
         ) : (
           <div className="flex justify-between gap-4 bg-white p-5 rounded-lg shadow-md">
             <div className="flex flex-col">
@@ -83,19 +87,32 @@ const Appointments = ({ firstName, lastName, appointments }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.hospital}
+                {rows.length ? (
+                  rows.map((row, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.hospital}
+                      </TableCell>
+                      <TableCell align="right">{row.date}</TableCell>
+                      <TableCell align="right">{row.time}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      <img
+                        src={Empty}
+                        alt="Empty"
+                        width={300}
+                        className="m-auto"
+                      />
                     </TableCell>
-                    <TableCell align="right">{row.date}</TableCell>
-                    <TableCell align="right">{row.time}</TableCell>
-                    <TableCell align="right">{row.status}</TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

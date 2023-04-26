@@ -8,6 +8,7 @@ import Profile from './Profile.png';
 import NoData from './NoData.svg';
 import DefaultHospital from './DefaultHospital.jpg';
 import ScheduleAppointment from './ScheduleAppointment.svg';
+import Empty from './Empty.png';
 
 export { 
     Logo,
@@ -20,4 +21,5 @@ export {
     NoData,
     DefaultHospital,
     ScheduleAppointment,
+    Empty,
 };
