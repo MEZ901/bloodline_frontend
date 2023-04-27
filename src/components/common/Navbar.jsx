@@ -135,12 +135,14 @@ const Navbar = () => {
                 Profile
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => navigate("/admin/dashboard")}>
-                <ListItemIcon>
-                  <DashboardOutlined fontSize="small" />
-                </ListItemIcon>
-                Dashboard
-              </MenuItem>
+              {user.roles.includes("admin") && (
+                <MenuItem onClick={() => navigate("/admin/dashboard")}>
+                  <ListItemIcon>
+                    <DashboardOutlined fontSize="small" />
+                  </ListItemIcon>
+                  Dashboard
+                </MenuItem>
+              )}
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <Settings fontSize="small" />

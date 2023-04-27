@@ -1,10 +1,12 @@
 import { useLocation, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCurrentToken } from "./authSelectors";
+import { selectCurrentToken, selectCurrentUser } from "./authSelectors";
 
 const AuthMiddleware = ({ type, children }) => {
   const location = useLocation();
   const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
+
   switch (type) {
     case "auth":
       return token ? (
@@ -23,6 +25,24 @@ const AuthMiddleware = ({ type, children }) => {
         />
       ) : (
         children
+      );
+    case "admin":
+      return token && user?.roles.includes("admin") ? (
+        children
+      ) : (
+        <Navigate
+          to={{ pathname: "/home", state: { from: location } }}
+          replace
+        />
+      );
+    case "sub_admin":
+      return token && user?.roles.includes("sub_admin") ? (
+        children
+      ) : (
+        <Navigate
+          to={{ pathname: "/home", state: { from: location } }}
+          replace
+        />
       );
   }
 };

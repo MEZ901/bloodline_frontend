@@ -43,7 +43,7 @@ const Appointments = ({ firstName, lastName, appointments }) => {
         <h3 className="text-2xl font-bold text-center">
           Upcoming Appointments
         </h3>
-        {!upcomingAppointments ? (
+        {!upcomingAppointments.length ? (
           <p className="text-center">
             You don't have any upcoming appointments
           </p>

@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: (
-          <AuthMiddleware type="auth">
+          <AuthMiddleware type="admin">
             <AdminLayout />
           </AuthMiddleware>
         ),
